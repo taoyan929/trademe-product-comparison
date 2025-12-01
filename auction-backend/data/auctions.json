@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Vintage Wooden Desk",
+    "description": "Beautiful solid oak desk from the 1960s. Features three drawers and original brass handles. Minor wear consistent with age. Perfect for home office or study.",
+    "category": "Furniture",
+    "location": "Ponsonby",
+    "colour": "Brown",
+    "start_price": 50,
+    "reserve_price": 150
+  },
+  {
+    "title": "Sony PlayStation 5 Console",
+    "description": "Brand new PS5 disc edition, unopened in original packaging. Purchased in 2022. Includes one DualSense controller. Full warranty applies.",
+    "category": "Electronics",
+    "location": "Auckland CBD",
+    "colour": "White",
+    "start_price": 500,
+    "reserve_price": 750
+  },
+  {
+    "title": "Mountain Bike - Giant Talon 2",
+    "description": "2022 Giant Talon 2 hardtail mountain bike. Size medium. Hydraulic disc brakes, 27.5 inch wheels. Ridden only a handful of times, excellent condition.",
+    "category": "Sports & Outdoors",
+    "location": "Albany",
+    "colour": "Black",
+    "start_price": 400,
+    "reserve_price": 600
+  },
+  {
+    "title": "Apple MacBook Pro 14-inch M3",
+    "description": "MacBook Pro 14-inch with M3 chip, 16GB RAM, 512GB SSD. Space Grey. First purchased in 2022, includes original charger and box. AppleCare+ until 2026.",
+    "category": "Electronics",
+    "location": "Newmarket",
+    "colour": "Grey",
+    "start_price": 2000,
+    "reserve_price": 2800
+  },
+  {
+    "title": "IKEA KALLAX Shelf Unit",
+    "description": "White KALLAX 4x4 cube shelf unit. Assembled but in great condition. Selling due to moving. Pickup only from Auckland CBD.",
+    "category": "Furniture",
+    "location": "Auckland CBD",
+    "colour": "White",
+    "start_price": 30,
+    "reserve_price": 80
+  },
+  {
+    "title": "Dyson V15 Detect Vacuum",
+    "description": "Dyson V15 Detect cordless vacuum cleaner. Includes all original attachments and wall mount. Purchased new 1 year ago. Battery holds full charge.",
+    "category": "Home & Garden",
+    "location": "Mt Eden",
+    "colour": "Purple",
+    "start_price": 400,
+    "reserve_price": 650
+  },
+  {
+    "title": "Canon EOS R6 Camera Body",
+    "description": "Canon EOS R6 mirrorless camera body only. Low shutter count (5,200). Includes original box, battery, charger, and strap. No scratches or damage.",
+    "category": "Electronics",
+    "location": "Takapuna",
+    "colour": "Black",
+    "start_price": 1500,
+    "reserve_price": 2200
+  },
+  {
+    "title": "Leather Sofa - 3 Seater",
+    "description": "Genuine Italian leather 3-seater sofa in dark brown. Vintage style with classic design. Very comfortable and well-maintained. Minor wear on armrests. Smoke-free home.",
+    "category": "Furniture",
+    "location": "Manukau",
+    "colour": "Brown",
+    "start_price": 200,
+    "reserve_price": 500
+  }
+]
