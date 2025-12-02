@@ -1,0 +1,187 @@
+/**
+ * ProductDetailPage Styles
+ * Based on Trade Me UI Kit and UX team design
+ */
+
+.product-detail-page {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+/* Two-column layout */
+.product-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+/* Left Column - Main Content */
+.product-detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Image Gallery */
+.product-image-gallery {
+  background: #ffffff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.product-image-main {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #F5F5F5;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-placeholder {
+  text-align: center;
+  color: #76716D;
+}
+
+/* Product Sections */
+.product-section {
+  background: #ffffff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.product-section h3 {
+  color: #44413d;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.product-description {
+  color: #65605d;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.product-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.detail-label {
+  color: #76716D;
+  font-weight: 500;
+}
+
+.detail-value {
+  color: #44413d;
+}
+
+/* Right Column - Sidebar */
+.product-detail-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.product-title {
+  color: #44413d;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Pricing */
+.product-pricing {
+  background: #ffffff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.pricing-label {
+  color: #76716D;
+  font-size: 12px;
+  margin: 0 0 4px 0;
+}
+
+.pricing-amount {
+  color: #44413d;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Action Buttons */
+.product-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Product Meta */
+.product-meta {
+  background: #F5F5F5;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.meta-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.meta-label {
+  color: #76716D;
+  font-weight: 500;
+}
+
+.meta-value {
+  color: #44413d;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .product-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .product-detail-sidebar {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-detail-page {
+    padding-top: 16px;
+    padding-bottom: 32px;
+  }
+
+  .product-title {
+    font-size: 24px;
+  }
+
+  .pricing-amount {
+    font-size: 24px;
+  }
+}

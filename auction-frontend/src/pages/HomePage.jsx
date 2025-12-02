@@ -8,6 +8,7 @@
  */
 
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import ProductCard from '../components/shared/ProductCard'
 import Button from '../components/shared/Button'
 
@@ -90,12 +91,17 @@ export default function HomePage() {
             marginBottom: '32px'
           }}>
             {auctions.map(auction => (
-              <ProductCard
+              <Link
                 key={auction._id}
-                product={auction}
-                showBookmark={true}
-                onBookmarkClick={(id) => console.log('Bookmarked:', id)}
-              />
+                to={`/product/${auction._id}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <ProductCard
+                  product={auction}
+                  showBookmark={true}
+                  onBookmarkClick={(id) => console.log('Bookmarked:', id)}
+                />
+              </Link>
             ))}
           </div>
 
