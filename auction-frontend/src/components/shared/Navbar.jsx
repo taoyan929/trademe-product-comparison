@@ -5,23 +5,28 @@
  * DO NOT modify without discussing in Teams chat first.
  */
 
-import './Navbar.css';
+import "./Navbar.css";
 
 export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__container">
         <div className="navbar__logo">
-          <a href="/">
-            <span className="navbar__logo-text">trade</span>
-            <span className="navbar__logo-me">me</span>
+          <a href="/" className="navbar-logo">
+            <img src="/Trademlogo.png" alt="Logo" style={{ height: "40px" }} />
           </a>
         </div>
 
         <div className="navbar__links">
-          <a href="/" className="navbar__link">Browse Marketplace</a>
-          <a href="/stores" className="navbar__link">Stores</a>
-          <a href="/deals" className="navbar__link">Deals</a>
+          <a href="/" className="navbar__link">
+            Browse Marketplace
+          </a>
+          <a href="/stores" className="navbar__link">
+            Stores
+          </a>
+          <a href="/deals" className="navbar__link">
+            Deals
+          </a>
         </div>
 
         <div className="navbar__actions">
