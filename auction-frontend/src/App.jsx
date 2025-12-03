@@ -13,7 +13,8 @@ import Navbar from './components/shared/Navbar'
 import HomePage from './pages/HomePage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import ComparisonPage from './pages/ComparisonPage'
-
+import SearchBar from './components/shared/SearchBar'
+import MarketplacePage from './pages/MarketplacePage'
 function App() {
   return (
 
@@ -21,9 +22,13 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/marketplace" element={<MarketplacePage />} />
+
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/comparison" element={<ComparisonPage />} />
+
       </Routes>
+      <SearchBar/>
     </BrowserRouter>
   )
 }
