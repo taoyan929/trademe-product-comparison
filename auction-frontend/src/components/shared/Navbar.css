@@ -67,8 +67,10 @@
   color: #44413d;
   padding: 8px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* stack icon and text vertically */
+  align-items: center;    /* center horizontally */
+  justify-content: center; 
+  gap: 4px;               /* space between icon and text */
   border-radius: 4px;
   transition: background-color 0.2s;
 }
