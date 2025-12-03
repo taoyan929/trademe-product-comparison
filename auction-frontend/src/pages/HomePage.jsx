@@ -1,111 +1,123 @@
 /**
- * HomePage - Dev 1
+ * HomePage - Landing Page
  *
- * Home/Browse marketplace page with search and filters
- * - Marketplace grid layout
- * - Search and filter UI
- * - Category filtering
+ * Main landing page with category navigation cards
  */
 
-import { useState, useEffect } from 'react'
-import ProductCard from '../components/shared/ProductCard'
-import Button from '../components/shared/Button'
+import { useNavigate } from "react-router-dom";
+import SearchBar from "../components/shared/SearchBar";
+import "./HomePage.css";
 
 export default function HomePage() {
-  const [auctions, setAuctions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchAuctions = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('http://localhost:3000/api/auctions');
+  const categories = [
+    {
+      id: "marketplace",
+      name: "Marketplace",
+      icon: "/marketplaceicon.png",
+      path: "/marketplace",
+    },
+    {
+      id: "property",
+      name: "Property",
+      icon: "/propertyicon.png",
+      path: "/marketplace?category=Property",
+    },
+    {
+      id: "motors",
+      name: "Motors",
+      icon: "/motorsicon.png",
+      path: "/marketplace?category=Motors",
+    },
+    {
+      id: "jobs",
+      name: "Jobs",
+      icon: "/jobsicon.png",
+      path: "/marketplace?category=Jobs",
+    },
+    {
+      id: "services",
+      name: "Services",
+      icon: "/servicesicon.png",
+      path: "/marketplace?category=Services",
+    },
+    {
+      id: "browse",
+      name: "Browse all",
+      icon: "/arrowicon.png",
+      path: "/marketplace",
+    },
+  ];
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+  const handleSearch = (query) => {
+    navigate(`/marketplace?q=${encodeURIComponent(query)}`);
+  };
 
-        const data = await response.json();
-
-        if (data.success) {
-          setAuctions(data.data);
-        } else {
-          throw new Error(data.error || 'Failed to fetch auctions');
-        }
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching auctions:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAuctions();
-  }, []);
+  const handleCategoryClick = (path) => {
+    navigate(path);
+  };
 
   return (
-    <main className="container" style={{ paddingTop: '24px', paddingBottom: '48px' }}>
-      <div style={{ marginBottom: '32px' }}>
-        <h1>Browse Marketplace</h1>
-        <p style={{ fontSize: '16px', marginTop: '8px' }}>
-          Discover amazing deals on quality pre-loved items
-        </p>
-      </div>
-
-      {loading && (
-        <div style={{ textAlign: 'center', padding: '48px' }}>
-          <p>Loading auctions...</p>
-        </div>
-      )}
-
-      {error && (
-        <div style={{
-          textAlign: 'center',
-          padding: '48px',
-          color: '#d32f2f',
-          backgroundColor: '#ffebee',
-          borderRadius: '4px',
-          marginBottom: '24px'
-        }}>
-          <p><strong>Error:</strong> {error}</p>
-          <p style={{ fontSize: '14px', marginTop: '8px' }}>
-            Make sure the backend server is running on http://localhost:3000
+    <main className="home-landing">
+      <div className="container">
+        {/* Hero Section */}
+        <div className="home-landing__hero">
+          <h1 className="home-landing__title">Welcome to Trade Me</h1>
+          <p className="home-landing__subtitle">
+            Buy and sell with New Zealand's most popular marketplace
           </p>
         </div>
-      )}
 
-      {!loading && !error && auctions.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '48px' }}>
-          <p>No auctions found</p>
+        {/* Search Bar */}
+        <div className="home-landing__search">
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Search all of Trade Me"
+          />
         </div>
-      )}
 
-      {!loading && !error && auctions.length > 0 && (
-        <>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '24px',
-            marginBottom: '32px'
-          }}>
-            {auctions.map(auction => (
-              <ProductCard
-                key={auction._id}
-                product={auction}
-                showBookmark={true}
-                onBookmarkClick={(id) => console.log('Bookmarked:', id)}
-              />
-            ))}
-          </div>
+        {/* Category Cards */}
+        <div className="home-landing__categories">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              className={`category-card ${
+                category.id === "browse" ? "category-card--browse" : ""
+              }`}
+              onClick={() => handleCategoryClick(category.path)}
+            >
+              <span className="category-card__icon">
+                <img
+                  src={category.icon}
+                  alt={`${category.name} icon`}
+                  width={40}
+                  height={40}
+                  onError={(e) => {
+                    e.target.src = "/placeholder.png";
+                  }} // optional fallback
+                />
+              </span>
+              <span className="category-card__name">{category.name}</span>
+              
+            </button>
+            
+          ))}
+        </div>
 
-          <div style={{ textAlign: 'center' }}>
-            <Button variant="primary" size="large">
-              View More Auctions
-            </Button>
+        {/* Cool Auctions Section */}
+        <div className="home-landing__section">
+          <div className="home-landing__section-header">
+            <h2>Cool auctions</h2>
+            <a href="/marketplace" className="home-landing__view-all">
+              View all →
+            </a>
           </div>
-        </>
-      )}
+          <p className="home-landing__section-description">
+            Check out these amazing deals from our marketplace
+          </p>
+        </div>
+      </div>
     </main>
-  )
+  );
 }

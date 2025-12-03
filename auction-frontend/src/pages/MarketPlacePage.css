@@ -1,0 +1,76 @@
+/**
+ * MarketplacePage Styles
+ * 
+ */
+
+.marketplace-page {
+  background-color: #F5F5F5;
+  min-height: calc(100vh - 80px);
+  padding: 32px 0 48px;
+}
+
+/* Header Section */
+.marketplace-page__header {
+  margin-bottom: 32px;
+}
+
+.marketplace-page__title {
+  color: #44413d;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.marketplace-page__subtitle {
+  color: #65605d;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Main Content Layout */
+.marketplace-page__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.marketplace-page__content {
+  min-width: 0; /* Prevent grid overflow */
+}
+
+.marketplace-page__actions {
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid #D9D9D9;
+}
+
+/* Responsive Layout */
+@media (min-width: 768px) {
+  .marketplace-page {
+    padding: 40px 0 64px;
+  }
+
+  .marketplace-page__title {
+    font-size: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .marketplace-page__layout {
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+  }
+
+  .marketplace-page__title {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .marketplace-page__layout {
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
+  }
+}

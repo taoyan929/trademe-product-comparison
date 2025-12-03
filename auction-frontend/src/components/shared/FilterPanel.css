@@ -1,0 +1,125 @@
+/**
+ * FilterPanel Styles
+ * 
+ */
+
+.filter-panel {
+  background: #ffffff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 24px;
+  position: sticky;
+  top: 24px;
+}
+
+.filter-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+.filter-panel__title {
+  font-size: 20px;
+  color: #44413d;
+  font-weight: 700;
+  margin: 0;
+}
+
+.filter-panel__clear {
+  background: none;
+  border: none;
+  color: #007acd;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.filter-panel__clear:hover {
+  background-color: #F5F5F5;
+  text-decoration: underline;
+}
+
+.filter-panel__section {
+  margin-bottom: 20px;
+}
+
+.filter-panel__section:last-child {
+  margin-bottom: 0;
+}
+
+.filter-panel__label {
+  display: block;
+  color: #44413d;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.filter-panel__select,
+.filter-panel__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #44413d;
+  background-color: #ffffff;
+  transition: border-color 0.2s;
+}
+
+.filter-panel__select:focus,
+.filter-panel__input:focus {
+  outline: none;
+  border-color: #007acd;
+  box-shadow: 0 0 0 2px rgba(0, 122, 205, 0.1);
+}
+
+.filter-panel__select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2344413d' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.filter-panel__price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-panel__input {
+  flex: 1;
+}
+
+.filter-panel__price-separator {
+  color: #76716D;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Remove number input spinners */
+.filter-panel__input[type="number"]::-webkit-inner-spin-button,
+.filter-panel__input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.filter-panel__input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filter-panel {
+    position: static;
+    margin-bottom: 24px;
+  }
+}
