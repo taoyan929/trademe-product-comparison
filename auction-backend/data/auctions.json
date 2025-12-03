@@ -6,7 +6,21 @@
     "location": "Ponsonby",
     "colour": "Brown",
     "start_price": 50,
-    "reserve_price": 150
+    "reserve_price": 150,
+    "condition": "Used",
+    "images": [
+      "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800",
+      "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up", "location": "Ponsonby, Auckland", "price": 0 },
+      { "method": "Courier", "price": 35 }
+    ],
+    "payment_methods": ["Cash", "Bank transfer"],
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 3,
+    "bid_count": 0,
+    "watchers_count": 5
   },
   {
     "title": "Sony PlayStation 5 Console",
@@ -15,7 +29,21 @@
     "location": "Auckland CBD",
     "colour": "White",
     "start_price": 500,
-    "reserve_price": 750
+    "reserve_price": 750,
+    "condition": "New",
+    "images": [
+      "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up", "location": "Auckland CBD", "price": 0 },
+      { "method": "Courier (tracked)", "price": 15 }
+    ],
+    "payment_methods": ["Ping", "Credit Card", "Cash"],
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 5,
+    "bid_count": 8,
+    "current_bid": 620,
+    "watchers_count": 23
   },
   {
     "title": "Mountain Bike - Giant Talon 2",
@@ -24,7 +52,23 @@
     "location": "Albany",
     "colour": "Black",
     "start_price": 400,
-    "reserve_price": 600
+    "reserve_price": 600,
+    "condition": "Used",
+    "images": [
+      "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=800",
+      "https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=800",
+      "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up", "location": "Albany, Auckland", "price": 0 },
+      { "method": "Courier", "price": 25 }
+    ],
+    "payment_methods": ["Ping", "Cash", "Bank transfer"],
+    "seller_username": "BikeEnthusiast",
+    "end_date_days_from_now": 2,
+    "bid_count": 3,
+    "current_bid": 450,
+    "watchers_count": 11
   },
   {
     "title": "Apple MacBook Pro 14-inch M3",
@@ -33,7 +77,22 @@
     "location": "Newmarket",
     "colour": "Grey",
     "start_price": 2000,
-    "reserve_price": 2800
+    "reserve_price": 2800,
+    "condition": "Refurbished",
+    "images": [
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up", "location": "Newmarket, Auckland", "price": 0 },
+      { "method": "Courier (insured)", "price": 20 }
+    ],
+    "payment_methods": ["Ping", "Bank transfer"],
+    "seller_username": "GadgetSeller",
+    "end_date_days_from_now": 7,
+    "bid_count": 12,
+    "current_bid": 2300,
+    "watchers_count": 34
   },
   {
     "title": "IKEA KALLAX Shelf Unit",
@@ -42,7 +101,20 @@
     "location": "Auckland CBD",
     "colour": "White",
     "start_price": 30,
-    "reserve_price": 80
+    "reserve_price": 80,
+    "condition": "Used",
+    "images": [
+      "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up only", "location": "Auckland CBD", "price": 0 }
+    ],
+    "payment_methods": ["Cash"],
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 1,
+    "bid_count": 2,
+    "current_bid": 45,
+    "watchers_count": 7
   },
   {
     "title": "Dyson V15 Detect Vacuum",
@@ -51,7 +123,21 @@
     "location": "Mt Eden",
     "colour": "Purple",
     "start_price": 400,
-    "reserve_price": 650
+    "reserve_price": 650,
+    "condition": "Used",
+    "images": [
+      "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up", "location": "Mt Eden, Auckland", "price": 0 },
+      { "method": "Courier", "price": 12 }
+    ],
+    "payment_methods": ["Ping", "Cash", "Bank transfer"],
+    "seller_username": "Phil202",
+    "end_date_days_from_now": 4,
+    "bid_count": 5,
+    "current_bid": 480,
+    "watchers_count": 15
   },
   {
     "title": "Canon EOS R6 Camera Body",
@@ -60,7 +146,21 @@
     "location": "Takapuna",
     "colour": "Black",
     "start_price": 1500,
-    "reserve_price": 2200
+    "reserve_price": 2200,
+    "condition": "Used",
+    "images": [
+      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800",
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up", "location": "Takapuna, Auckland", "price": 0 },
+      { "method": "Courier (insured)", "price": 18 }
+    ],
+    "payment_methods": ["Ping", "Bank transfer", "Cash"],
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 6,
+    "bid_count": 0,
+    "watchers_count": 19
   },
   {
     "title": "Leather Sofa - 3 Seater",
@@ -69,6 +169,20 @@
     "location": "Manukau",
     "colour": "Brown",
     "start_price": 200,
-    "reserve_price": 500
+    "reserve_price": 500,
+    "condition": "Used",
+    "images": [
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800",
+      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800"
+    ],
+    "shipping_options": [
+      { "method": "Pick up only", "location": "Manukau, Auckland", "price": 0 }
+    ],
+    "payment_methods": ["Cash", "Bank transfer"],
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 3,
+    "bid_count": 1,
+    "current_bid": 220,
+    "watchers_count": 9
   }
 ]

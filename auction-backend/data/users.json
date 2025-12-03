@@ -1,0 +1,52 @@
+[
+  {
+    "username": "Phil202",
+    "email": "phil202@example.com",
+    "rating_positive_percentage": 97.1,
+    "total_ratings": 65,
+    "location": "Auckland City, Auckland",
+    "member_since": "2020-01-15T00:00:00.000Z",
+    "verified": true,
+    "bio": "Trusted seller since 2020. Fast shipping and great communication!"
+  },
+  {
+    "username": "TechGuru88",
+    "email": "techguru@example.com",
+    "rating_positive_percentage": 99.2,
+    "total_ratings": 143,
+    "location": "Auckland CBD, Auckland",
+    "member_since": "2019-05-20T00:00:00.000Z",
+    "verified": true,
+    "bio": "Electronics specialist. All items tested and guaranteed."
+  },
+  {
+    "username": "BikeEnthusiast",
+    "email": "bikelover@example.com",
+    "rating_positive_percentage": 95.8,
+    "total_ratings": 42,
+    "location": "Albany, Auckland",
+    "member_since": "2021-03-10T00:00:00.000Z",
+    "verified": false,
+    "bio": "Passionate about cycling. Selling quality bikes and gear."
+  },
+  {
+    "username": "HomeDecorPro",
+    "email": "homedecor@example.com",
+    "rating_positive_percentage": 98.5,
+    "total_ratings": 89,
+    "location": "Ponsonby, Auckland",
+    "member_since": "2020-08-12T00:00:00.000Z",
+    "verified": true,
+    "bio": "Furniture and home goods. Quality items at great prices."
+  },
+  {
+    "username": "GadgetSeller",
+    "email": "gadgets@example.com",
+    "rating_positive_percentage": 100,
+    "total_ratings": 28,
+    "location": "Newmarket, Auckland",
+    "member_since": "2022-01-05T00:00:00.000Z",
+    "verified": false,
+    "bio": "New to the platform but committed to excellent service."
+  }
+]

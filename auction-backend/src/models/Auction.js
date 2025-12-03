@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const auctionSchema = new mongoose.Schema({
+  // Existing fields
   title: {
     type: String,
     required: true,
@@ -35,9 +36,113 @@ const auctionSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 0
+  },
+
+  // New timing fields
+  start_date: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  end_date: {
+    type: Date,
+    required: true,
+    validate: {
+      validator: function(value) {
+        return value > this.start_date;
+      },
+      message: 'end_date must be after start_date'
+    }
+  },
+
+  // Product details
+  condition: {
+    type: String,
+    required: true,
+    enum: ['New', 'Used', 'Refurbished'],
+    default: 'Used'
+  },
+  images: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function(value) {
+        return value && value.length > 0;
+      },
+      message: 'At least one image is required'
+    }
+  },
+
+  // Shipping options
+  shipping_options: [{
+    method: {
+      type: String,
+      required: true
+    },
+    location: {
+      type: String,
+      required: false
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: 0
+    }
+  }],
+
+  // Payment methods
+  payment_methods: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function(value) {
+        return value && value.length > 0;
+      },
+      message: 'At least one payment method is required'
+    }
+  },
+
+  // Seller reference
+  seller_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+
+  // Cached statistics (updated when bids/watchlist changes)
+  current_bid: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  bid_count: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  reserve_met: {
+    type: Boolean,
+    default: false
+  },
+  watchers_count: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+
+  // Auction status
+  status: {
+    type: String,
+    enum: ['draft', 'active', 'ended', 'sold', 'unsold'],
+    default: 'active'
   }
 }, {
   timestamps: true
 });
+
+// Index for performance
+auctionSchema.index({ seller_id: 1 });
+auctionSchema.index({ end_date: 1 });
+auctionSchema.index({ status: 1, end_date: 1 });
 
 module.exports = mongoose.model('Auction', auctionSchema);

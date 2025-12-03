@@ -82,7 +82,8 @@ router.get('/search', async (req, res) => {
 // GET /api/auctions/:id - Get single auction by ID
 router.get('/:id', async (req, res) => {
   try {
-    const auction = await Auction.findById(req.params.id);
+    const auction = await Auction.findById(req.params.id)
+      .populate('seller_id', 'username rating_positive_percentage total_ratings location member_since avatar_url verified');
 
     if (!auction) {
       return res.status(404).json({

@@ -99,7 +99,7 @@ export default function HomePage() {
                 <ProductCard
                   product={auction}
                   showBookmark={true}
-                  onBookmarkClick={(id) => console.log('Bookmarked:', id)}
+                  onBookmarkClick={() => {}}
                 />
               </Link>
             ))}
