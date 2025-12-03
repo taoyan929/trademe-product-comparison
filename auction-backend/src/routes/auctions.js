@@ -51,7 +51,24 @@ router.get('/', async (req, res) => {
 
     // For comparison tool Ids
     if (ids) {
-      query._id = { $in: ids.split(',') };
+      // user input sequence
+      const idList = ids.split(',');
+      // Query all matched products from db
+      const results = await Auction.find ({
+        _id: { $in: idList }
+      });
+      // Order the sequence as the idList
+      const ordered = idList.map(id => 
+        results.find(item => item._id.toString() === id) || null
+      );
+
+      return res.json({
+        success: true,
+        count: ordered.length,
+        ordered: true,
+        data: ordered
+      });
+  
     }
 
     // Best match sorting ( use aggregation pipeline)
