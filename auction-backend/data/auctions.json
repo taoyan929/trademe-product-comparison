@@ -142,7 +142,7 @@
     "colour": "White",
     "start_price": 180,
     "reserve_price": 250,
-    "image": "httpsum.photos/seed/item10/400/300",
+    "image": "https://picsum.photos/seed/item10/400/300",
     "closing_time": "2025-12-21T14:00:00.000Z",
     "buy_now_price": 330,
     "condition": "Like New",
