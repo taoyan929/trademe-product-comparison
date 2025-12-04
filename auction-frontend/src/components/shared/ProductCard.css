@@ -40,6 +40,15 @@
 .product-card__placeholder-text {
   color: #76716D;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .product-card__content {

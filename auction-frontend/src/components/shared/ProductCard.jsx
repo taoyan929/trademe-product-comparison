@@ -25,9 +25,13 @@ export default function ProductCard({
     colour,
     start_price,
     reserve_price,
+    image,
+    images,
   } = product;
 
-  
+  // Support both image formats
+  const imageUrl = images && images.length > 0 ? images[0] : image;
+
   return (
     <div className="product-card">
       {showBookmark && (
@@ -59,18 +63,21 @@ export default function ProductCard({
         </button>
       )}
 
-      <div className="product-card__image">
-        {product.image ? (
-          <img 
-            src={product.image} 
+      <div className="product-card__image-placeholder">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
             alt={title}
-            className="product-card__image-tag"
+            className="product-card__image"
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'flex';
+            }}
           />
-        ) : (
-          <div className="product-card__image-placeholder">
-            <div className="product-card__placeholder-text">No Image</div>
-          </div>
-        )}
+        ) : null}
+        <div className="product-card__placeholder-text" style={{ display: imageUrl ? 'none' : 'flex' }}>
+          No Image
+        </div>
       </div>
 
       <div className="product-card__content">
