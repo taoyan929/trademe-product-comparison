@@ -13,15 +13,18 @@ import Navbar from './components/shared/Navbar'
 import HomePage from './pages/HomePage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import ComparisonPage from './pages/ComparisonPage'
-
+import MarketplacePage from './pages/MarketplacePage'
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/marketplace" element={<MarketplacePage />} />
+
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/comparison" element={<ComparisonPage />} />
+
       </Routes>
     </Router>
   )

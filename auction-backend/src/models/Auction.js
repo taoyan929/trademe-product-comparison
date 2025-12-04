@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const auctionSchema = new mongoose.Schema({
-  // Existing fields
+  // Basic fields
   title: {
     type: String,
     required: true,
@@ -38,42 +38,45 @@ const auctionSchema = new mongoose.Schema({
     min: 0
   },
 
-  // New timing fields
+  // Image fields (support both formats)
+  image: {
+    type: String,
+    required: false  // Not required to support legacy data
+  },
+  images: {
+    type: [String],
+    required: false,
+    default: function() {
+      return this.image ? [this.image] : [];
+    }
+  },
+
+  // Timing fields (support both formats)
   start_date: {
     type: Date,
-    required: true,
     default: Date.now
   },
   end_date: {
     type: Date,
-    required: true,
-    validate: {
-      validator: function(value) {
-        return value > this.start_date;
-      },
-      message: 'end_date must be after start_date'
-    }
+    required: false
+  },
+  closing_time: {
+    type: Date,
+    required: false
   },
 
-  // Product details
+  // Condition field (merged enum)
   condition: {
     type: String,
-    required: true,
-    enum: ['New', 'Used', 'Refurbished'],
-    default: 'Used'
-  },
-  images: {
-    type: [String],
-    required: true,
-    validate: {
-      validator: function(value) {
-        return value && value.length > 0;
-      },
-      message: 'At least one image is required'
-    }
+    enum: ['New', 'Used', 'Like New', 'Refurbished', 'Unknown'],
+    default: 'Unknown'
   },
 
-  // Shipping options
+  // Shipping (support both formats)
+  shipping_price: {
+    type: Number,
+    default: 0
+  },
   shipping_options: [{
     method: {
       type: String,
@@ -93,23 +96,30 @@ const auctionSchema = new mongoose.Schema({
   // Payment methods
   payment_methods: {
     type: [String],
-    required: true,
-    validate: {
-      validator: function(value) {
-        return value && value.length > 0;
-      },
-      message: 'At least one payment method is required'
-    }
+    default: []
+  },
+
+  // Buy now price (from main)
+  buy_now_price: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+
+  // View count (from main)
+  view_count: {
+    type: Number,
+    default: 0
   },
 
   // Seller reference
   seller_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: false
   },
 
-  // Cached statistics (updated when bids/watchlist changes)
+  // Cached bidding statistics
   current_bid: {
     type: Number,
     default: 0,
@@ -143,6 +153,7 @@ const auctionSchema = new mongoose.Schema({
 // Index for performance
 auctionSchema.index({ seller_id: 1 });
 auctionSchema.index({ end_date: 1 });
+auctionSchema.index({ closing_time: 1 });
 auctionSchema.index({ status: 1, end_date: 1 });
 
 module.exports = mongoose.model('Auction', auctionSchema);
