@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getAuctionById } from '../services/api'
 import Button from '../components/shared/Button'
+import BidModal from '../components/shared/BidModal'
 import { ClockIcon, CalendarIcon, BinocularsIcon, CheckIcon, UserAvatarIcon, SellerAvatarIcon } from '../components/shared/Icons'
 import './ProductDetailPage.css'
 
@@ -53,6 +54,7 @@ export default function ProductDetailPage() {
   const [error, setError] = useState(null)
   const [timeRemaining, setTimeRemaining] = useState('')
   const [selectedImage, setSelectedImage] = useState(0)
+  const [isBidModalOpen, setIsBidModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -62,7 +64,9 @@ export default function ProductDetailPage() {
 
         if (response.success) {
           setProduct(response.data)
-          setTimeRemaining(getTimeRemaining(response.data.end_date))
+          // Support both end_date and closing_time
+          const endTime = response.data.end_date || response.data.closing_time
+          setTimeRemaining(getTimeRemaining(endTime))
         } else {
           throw new Error(response.error || 'Failed to fetch product')
         }
@@ -79,10 +83,11 @@ export default function ProductDetailPage() {
 
   // Update countdown timer every minute
   useEffect(() => {
-    if (!product?.end_date) return
+    const endTime = product?.end_date || product?.closing_time
+    if (!endTime) return
 
     const interval = setInterval(() => {
-      setTimeRemaining(getTimeRemaining(product.end_date))
+      setTimeRemaining(getTimeRemaining(endTime))
     }, 60000) // Update every minute
 
     return () => clearInterval(interval)
@@ -143,22 +148,28 @@ export default function ProductDetailPage() {
           {/* Image Gallery */}
           <div className="product-image-gallery">
             <div className="product-image-main">
-              {product.images && product.images.length > 0 ? (
-                <img
-                  src={product.images[selectedImage]}
-                  alt={`${product.title} - Image ${selectedImage + 1}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }}
-                />
-              ) : (
-                <div className="image-placeholder">
-                  <p>No image available</p>
-                </div>
-              )}
+              {(() => {
+                // Support both images array and single image
+                const imageArray = product.images || (product.image ? [product.image] : [])
+                return imageArray.length > 0 ? (
+                  <img
+                    src={imageArray[selectedImage]}
+                    alt={`${product.title} - Image ${selectedImage + 1}`}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }}
+                  />
+                ) : (
+                  <div className="image-placeholder">
+                    <p>No image available</p>
+                  </div>
+                )
+              })()}
             </div>
             {/* Image thumbnails */}
-            {product.images && product.images.length > 1 && (
-              <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-                {product.images.map((img, index) => (
+            {(() => {
+              const imageArray = product.images || (product.image ? [product.image] : [])
+              return imageArray.length > 1 && (
+                <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+                  {imageArray.map((img, index) => (
                   <img
                     key={index}
                     src={img}
@@ -173,9 +184,10 @@ export default function ProductDetailPage() {
                       border: selectedImage === index ? '2px solid #F9AF2C' : '2px solid transparent'
                     }}
                   />
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )
+            })()}
           </div>
 
           {/* Details Section */}
@@ -374,22 +386,27 @@ export default function ProductDetailPage() {
               <span className="date-icon">
                 <CalendarIcon size={16} />
               </span>
-              <span className="date-text">{formatDate(product.end_date)}</span>
+              <span className="date-text">{formatDate(product.end_date || product.closing_time)}</span>
             </div>
           </div>
 
           {/* Pricing Container with Button & Bid Info */}
           <div className="product-pricing">
             <p className="pricing-label">
-              {product.bid_count > 0 ? 'Current bid' : 'Starting price'}
+              {(product.bid_count || 0) > 0 ? 'Current bid' : 'Starting price'}
             </p>
             <p className="pricing-amount">
-              ${product.bid_count > 0
-                ? product.current_bid.toFixed(2)
+              ${(product.bid_count || 0) > 0
+                ? (product.current_bid || 0).toFixed(2)
                 : product.start_price.toFixed(2)}
             </p>
 
-            <Button variant="primary" size="large" fullWidth>
+            <Button
+              variant="primary"
+              size="large"
+              fullWidth
+              onClick={() => setIsBidModalOpen(true)}
+            >
               Place bid
             </Button>
 
@@ -398,7 +415,7 @@ export default function ProductDetailPage() {
                 {product.reserve_met ? 'Reserve met' : 'Reserve not met'}
               </p>
               <p style={{ fontSize: '16px', color: '#007acd', textAlign: 'center', textDecoration: 'underline', margin: '0' }}>
-                {product.bid_count === 0
+                {(product.bid_count || 0) === 0
                   ? 'No bids'
                   : `${product.bid_count} bid${product.bid_count !== 1 ? 's' : ''}`}
               </p>
@@ -417,8 +434,8 @@ export default function ProductDetailPage() {
               Set email reminder: <span style={{ color: '#007acd' }}>12 hours</span>
             </p>
             <p className="watchlist-count">
-              <span style={{ fontWeight: 600 }}>{product.watchers_count}</span>{' '}
-              {product.watchers_count === 1 ? 'person' : 'others'} watchlisted
+              <span style={{ fontWeight: 600 }}>{product.watchers_count || 0}</span>{' '}
+              {(product.watchers_count || 0) === 1 ? 'person' : 'others'} watchlisted
             </p>
           </div>
 
@@ -469,6 +486,15 @@ export default function ProductDetailPage() {
           )}
         </aside>
       </div>
+
+      {/* Bid Modal */}
+      <BidModal
+        isOpen={isBidModalOpen}
+        onClose={() => setIsBidModalOpen(false)}
+        product={product}
+        currentBid={product.current_bid || 0}
+        timeRemaining={timeRemaining}
+      />
     </main>
   )
 }

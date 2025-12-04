@@ -32,6 +32,10 @@ const bidSchema = new mongoose.Schema({
     type: String,
     enum: ['active', 'outbid', 'winning'],
     default: 'active'
+  },
+  selected_shipping_method: {
+    type: String,
+    required: false
   }
 }, {
   timestamps: true

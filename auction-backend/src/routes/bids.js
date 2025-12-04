@@ -52,7 +52,7 @@ router.get('/auction/:auctionId/highest', async (req, res) => {
 // POST /api/bids - Place a new bid
 router.post('/', async (req, res) => {
   try {
-    const { auction_id, bidder_id, amount, is_auto_bid, max_auto_bid } = req.body;
+    const { auction_id, bidder_id, amount, is_auto_bid, max_auto_bid, selected_shipping_method } = req.body;
 
     // Validate required fields
     if (!auction_id || !bidder_id || !amount) {
@@ -106,6 +106,7 @@ router.post('/', async (req, res) => {
       amount,
       is_auto_bid: is_auto_bid || false,
       max_auto_bid: max_auto_bid || null,
+      selected_shipping_method: selected_shipping_method || null,
       status: 'winning'
     });
 

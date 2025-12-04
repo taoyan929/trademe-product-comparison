@@ -198,7 +198,7 @@ router.get('/:id', async (req, res) => {
       req.params.id,
       { $inc: { view_count: 1 } },
       { new: true }
-    );
+    ).populate('seller_id', 'username avatar_url location member_since total_ratings rating_positive_percentage verified');
 
     if (!auction) {
       return res.status(404).json({
@@ -206,7 +206,7 @@ router.get('/:id', async (req, res) => {
         error: 'Auction not found'
       });
     }
-    
+
     res.json({
       success: true,
       data: auction
