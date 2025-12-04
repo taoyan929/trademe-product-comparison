@@ -32,5 +32,8 @@ npm-debug.log*
 My Notes/
 notes/
 
+# Design assets
+ux/
+
 # Testing
 .nyc_output/
