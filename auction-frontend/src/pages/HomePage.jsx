@@ -1,8 +1,20 @@
 /**
  * HomePage - Landing Page
  *
- * Main landing page with category navigation cards and cool auctions
- */
+* WHAT THIS PAGE DOES:
+ * This is the main landing page users see when they visit the site.
+ * It shows a search bar, category navigation cards, and "cool auctions" section.
+ * 
+ * API INTEGRATION - HOW IT MEETS PHASE 2 REQUIREMENTS:
+ * When this page loads, it automatically fetches auction data from the MongoDB backend
+ * and displays it on the screen. This demonstrates the "API call updates frontend display" requirement.
+ * 
+ * THE FLOW:
+ * 1. Page loads → useEffect runs
+ * 2. fetchCoolAuctions() makes API call to backend
+ * 3. Backend queries MongoDB and returns auction data
+ * 4. Frontend receives data and stores it in React state (setCoolAuctions)
+ * 5. React re-renders and displays the ProductCards with real data */
 
 import { useState, useEffect } from "react";
 import SearchBar from "../components/shared/SearchBar";
@@ -10,11 +22,15 @@ import ProductCard from "../components/shared/ProductCard";
 import { useNavigate, Link } from "react-router-dom";
 import "./HomePage.css";
 
+// STATE MANAGEMENT - React hooks to store data
+  // coolAuctions: stores the auction data we get from the backend
+  // loading: shows loading spinner while fetching data
 export default function HomePage() {
   const navigate = useNavigate();
   const [coolAuctions, setCoolAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // CATEGORY DATA - Navigation cards shown on homepage
   const categories = [
     {
       id: "marketplace",
@@ -169,18 +185,47 @@ export default function HomePage() {
   useEffect(() => {
     fetchCoolAuctions();
   }, []);
+  /**
+   * useEffect - React hook that runs when component loads
+   * 
+   * EXPLANATION:
+   * This is like saying "when the page first appears, go fetch the auction data"
+   * The empty [] means it only runs once when the page loads
+   */
 
+
+  //fetchCoolAuctions - THE MAIN API FUNCTION
+
+  /**
+   * Step 1: Make API call to backend server
+   * Step 2: Backend queries MongoDB database
+   * Step 3: Backend sends data back as JSON
+   * Step 4: Frontend receives the data
+   * Step 5: Frontend stores data in state (setCoolAuctions)
+   * Step 6: React automatically re-renders the page with new data
+   * Step 7: User sees the ProductCards on screen
+
+   */
   const fetchCoolAuctions = async () => {
     try {
+      // start loading state
       setLoading(true);
       console.log('Fetching cool auctions...');
+      // This sends a GET request to our Express server
+      // The server is running on localhost:3000
+      // We're asking for 6 auctions using the ?limit=6 query parameter
       const response = await fetch('http://localhost:3000/api/auctions?limit=6');
       console.log('Response status:', response.status);
       
+
+      // checks if the response was successfull 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
+      // converts the response to json format
+      // the backend sends data in this format : 
+      // { success: true, data: [array of auctions] }
       const result = await response.json();
       console.log('Fetched result:', result);
       
@@ -188,8 +233,11 @@ export default function HomePage() {
       const auctions = result.data || [];
       console.log('Number of auctions:', auctions.length);
       
-      setCoolAuctions(auctions);
-    } catch (error) {
+      // When we call setCoolAuctions, React knows to re-render the component
+      // This causes the ProductCards to appear on screen with the new data
+      // this updates the front end display
+      setCoolAuctions(auctions); // stores data in react state
+    } catch (error) { //error catching
       console.error('Error fetching cool auctions:', error);
       setCoolAuctions([]);
     } finally {
@@ -197,24 +245,35 @@ export default function HomePage() {
     }
   };
 
+
+  /**
+   * handleSearch - Handles user search input
+   * 
+   * WHEN USER TYPES AND CLICKS SEARCH:
+   * Takes the search query and navigates to marketplace page
+   * The marketplace page will then filter results based on this query
+   */
   const handleSearch = (query) => {
     navigate(`/marketplace?q=${encodeURIComponent(query)}`);
   };
+// when user clicks a catogary it navigates to the /marketplace?category=Electronics
 
   const handleCategoryClick = (path) => {
     navigate(path);
   };
 
   const handleBookmarkClick = (productId) => {
-    // TODO: Implement watchlist functionality
+    // TODO: Implement watchlist functionality - This will be connected to the watchlist API in the future
     console.log('Add to watchlist:', productId);
   };
 
+  // handles clicking on product card e.g _ user clicks on product it will navigate to product detail page /product/123
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
   };
 
   return (
+  //  ui render
     <main className="home-landing">
       <div className="container">
         {/* Hero Section */}
@@ -286,6 +345,10 @@ export default function HomePage() {
           )}
         </div>
       </div>
+      
     </main>
+    
+
+    
   );
 }

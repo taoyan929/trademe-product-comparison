@@ -14,6 +14,7 @@ import HomePage from './pages/HomePage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import ComparisonPage from './pages/ComparisonPage'
 import MarketplacePage from './pages/MarketplacePage'
+import Footer from './components/shared/Footer'
 function App() {
   return (
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/comparison" element={<ComparisonPage />} />
 
       </Routes>
+      <Footer/>
     </BrowserRouter>
   )
 }

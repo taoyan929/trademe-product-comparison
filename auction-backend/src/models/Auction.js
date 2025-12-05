@@ -165,6 +165,7 @@ const auctionSchema = new mongoose.Schema({
   timestamps: true
 });
 
+
 // Index for performance
 auctionSchema.index({ seller_id: 1 });
 auctionSchema.index({ end_date: 1 });
