@@ -8,11 +8,13 @@
     "start_price": 450,
     "reserve_price": 600,
     "image": "https://picsum.photos/seed/item1/400/300",
-    "closing_time": "2025-12-22T10:30:00.000Z",
     "buy_now_price": 750,
     "condition": "Used",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 7,
+    "current_bid": 475
   },
   {
     "title": "Wooden Study Desk",
@@ -23,11 +25,12 @@
     "start_price": 30,
     "reserve_price": 60,
     "image": "https://picsum.photos/seed/item2/400/300",
-    "closing_time": "2025-12-21T18:00:00.000Z",
     "buy_now_price": 90,
     "condition": "Used",
     "shipping_price": 15,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 5
   },
   {
     "title": "Samsung 55-inch 4K Smart TV",
@@ -38,11 +41,13 @@
     "start_price": 250,
     "reserve_price": 400,
     "image": "https://picsum.photos/seed/item3/400/300",
-    "closing_time": "2025-12-23T16:00:00.000Z",
     "buy_now_price": 520,
     "condition": "Used",
     "shipping_price": 15,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 6,
+    "current_bid": 280
   },
   {
     "title": "Mountain Bike – Shimano 21 Speed",
@@ -53,11 +58,13 @@
     "start_price": 80,
     "reserve_price": 120,
     "image": "https://picsum.photos/seed/item4/400/300",
-    "closing_time": "2025-12-24T08:00:00.000Z",
     "buy_now_price": 180,
     "condition": "Used",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "BikeEnthusiast",
+    "end_date_days_from_now": 8,
+    "current_bid": 95
   },
   {
     "title": "Sony WH-1000XM4 Noise Cancelling Headphones",
@@ -68,11 +75,13 @@
     "start_price": 120,
     "reserve_price": 180,
     "image": "https://picsum.photos/seed/item5/400/300",
-    "closing_time": "2025-12-22T21:30:00.000Z",
     "buy_now_price": 260,
     "condition": "Like New",
     "shipping_price": 5,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "GadgetSeller",
+    "end_date_days_from_now": 4,
+    "current_bid": 150
   },
   {
     "title": "Dining Table Set (4 Chairs)",
@@ -83,11 +92,12 @@
     "start_price": 60,
     "reserve_price": 100,
     "image": "https://picsum.photos/seed/item6/400/300",
-    "closing_time": "2025-12-24T11:45:00.000Z",
     "buy_now_price": 150,
     "condition": "Used",
     "shipping_price": 15,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 10
   },
   {
     "title": "MacBook Pro 14-inch (M1 Pro)",
@@ -98,11 +108,13 @@
     "start_price": 900,
     "reserve_price": 1200,
     "image": "https://picsum.photos/seed/item7/400/300",
-    "closing_time": "2025-12-22T15:30:00.000Z",
     "buy_now_price": 1500,
     "condition": "Like New",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 3,
+    "current_bid": 950
   },
   {
     "title": "Office Chair Ergonomic Mesh",
@@ -113,11 +125,12 @@
     "start_price": 20,
     "reserve_price": 40,
     "image": "https://picsum.photos/seed/item8/400/300",
-    "closing_time": "2025-12-22T22:00:00.000Z",
     "buy_now_price": 70,
     "condition": "Used",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "Phil202",
+    "end_date_days_from_now": 5
   },
   {
     "title": "Canon EOS 80D DSLR Camera",
@@ -128,11 +141,12 @@
     "start_price": 300,
     "reserve_price": 400,
     "image": "https://picsum.photos/seed/item9/400/300",
-    "closing_time": "2025-12-23T13:00:00.000Z",
     "buy_now_price": 550,
     "condition": "Refurbished",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "GadgetSeller",
+    "end_date_days_from_now": 7
   },
   {
     "title": "Xbox Series S",
@@ -143,11 +157,13 @@
     "start_price": 180,
     "reserve_price": 250,
     "image": "https://picsum.photos/seed/item10/400/300",
-    "closing_time": "2025-12-21T14:00:00.000Z",
     "buy_now_price": 330,
     "condition": "Like New",
     "shipping_price": 5,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 4,
+    "current_bid": 200
   },
   {
     "title": "Leather Sofa 3-Seater",
@@ -158,11 +174,12 @@
     "start_price": 90,
     "reserve_price": 150,
     "image": "https://picsum.photos/seed/item11/400/300",
-    "closing_time": "2025-12-24T17:00:00.000Z",
     "buy_now_price": 250,
     "condition": "Used",
     "shipping_price": 0,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 9
   },
   {
     "title": "Nikon 35mm f/1.8 Lens",
@@ -173,11 +190,12 @@
     "start_price": 120,
     "reserve_price": 150,
     "image": "https://picsum.photos/seed/item12/400/300",
-    "closing_time": "2025-12-22T19:15:00.000Z",
     "buy_now_price": 220,
     "condition": "Used",
     "shipping_price": 5,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "GadgetSeller",
+    "end_date_days_from_now": 6
   },
   {
     "title": "Apple Watch Series 7 GPS 45mm",
@@ -188,11 +206,13 @@
     "start_price": 150,
     "reserve_price": 220,
     "image": "https://picsum.photos/seed/item13/400/300",
-    "closing_time": "2025-12-21T09:10:00.000Z",
     "buy_now_price": 320,
     "condition": "Like New",
     "shipping_price": 5,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "Phil202",
+    "end_date_days_from_now": 3,
+    "current_bid": 175
   },
   {
     "title": "Microwave Oven 25L",
@@ -203,11 +223,12 @@
     "start_price": 20,
     "reserve_price": 40,
     "image": "https://picsum.photos/seed/item14/400/300",
-    "closing_time": "2025-12-23T20:00:00.000Z",
     "buy_now_price": 80,
     "condition": "Used",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "Phil202",
+    "end_date_days_from_now": 8
   },
   {
     "title": "Camping Tent 4-Person",
@@ -218,10 +239,11 @@
     "start_price": 40,
     "reserve_price": 80,
     "image": "https://picsum.photos/seed/item15/400/300",
-    "closing_time": "2025-12-24T10:30:00.000Z",
     "buy_now_price": 120,
     "condition": "Used",
     "shipping_price": 15,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "BikeEnthusiast",
+    "end_date_days_from_now": 12
   }
 ]

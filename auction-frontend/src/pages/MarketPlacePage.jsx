@@ -1,12 +1,22 @@
 /**
- * MarketplacePage - Browse/Search Page
+ * MarketplacePage - Dev 1's Browse/Search Page
  *
- * - Search functionality
- * - Filter panel (category, location, price range)
- * - Responsive product grid
- * - API integration
+ * WHAT THIS PAGE DOES:
+ * This is the main browsing page where users can search and filter auctions.
+ * It has a search bar, filter panel, and displays all matching products.
+ * 
+ * API INTEGRATION - HOW IT MEETS PHASE 2 REQUIREMENTS:
+ * 1. Fetches ALL auctions from MongoDB when page loads
+ * 2. Stores them in React state
+ * 3. When user searches or filters, updates the display in real-time
+ * 4. Demonstrates "API call updates frontend display" requirement
+ * 
+ * THE FLOW:
+ * 1. Page loads → fetchAuctions() gets all auctions from backend
+ * 2. User types in search/applies filters → applyFiltersAndSearch() runs
+ * 3. Filtered results update → setFilteredAuctions() updates state
+ * 4. React re-renders → ProductGrid shows updated results
  */
-
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from '../components/shared/SearchBar';
@@ -16,12 +26,15 @@ import Button from '../components/shared/Button';
 import './MarketplacePage.css';
 
 export default function MarketplacePage() {
+    // URL PARAMETERS - Read query strings from URL (e.g., ?q=iphone&category=Electronics)
   const [searchParams, setSearchParams] = useSearchParams();
+    // STATE MANAGEMENT - Storing data and UI state
   const [auctions, setAuctions] = useState([]);
   const [filteredAuctions, setFilteredAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  // FILTER STATE - All filter options
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
     location: '',
@@ -30,47 +43,95 @@ export default function MarketplacePage() {
     maxPrice: ''
   });
 
-  // Fetch auctions from API
+/**
+   * useEffect #1 - Fetch auctions when page loads
+   * 
+   * RUNS ONCE when component mounts (empty dependency array [])
+   * This makes the initial API call to get all auctions
+   */
   useEffect(() => {
     fetchAuctions();
   }, []);
 
-  // Apply filters and search whenever they change
+/**
+   * useEffect #2 - Apply filters whenever data or filters change
+   * 
+   * RUNS WHENEVER: auctions, searchQuery, or filters change
+   * This keeps the display updated based on user actions
+   */
   useEffect(() => {
     applyFiltersAndSearch();
   }, [auctions, searchQuery, filters]);
 
-  const fetchAuctions = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const response = await fetch('http://localhost:3000/api/auctions?limit=50');
+  // main api function 
+  // makes api call to backend
+  // Backend queries MongoDB for auctions
+  // Backend returns JSON with auction data
+  // Frontend stores data in state
+  // React re-renders with new data
+  // API call updates the frontend display
+const fetchAuctions = async () => {
+  try {
+    setLoading(true);
+    setError(null);
+    
+    // Build query parameters
+    const params = new URLSearchParams();
+    if (searchQuery) params.append('q', searchQuery);
+    if (filters.category) params.append('category', filters.category);
+    if (filters.location) params.append('location', filters.location);
+    if (filters.colour) params.append('colour', filters.colour);
+    if (filters.minPrice) params.append('minPrice', filters.minPrice);
+    if (filters.maxPrice) params.append('maxPrice', filters.maxPrice);
+    params.append('limit', '50');
+// the api call- Request auctions from backend
+// asking for up to 50 auctions to work with
+    const response = await fetch(`http://localhost:3000/api/auctions?${params}`);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setAuctions(data.data);
-        setFilteredAuctions(data.data);
-      } else {
-        throw new Error(data.error || 'Failed to fetch auctions');
-      }
-    } catch (err) {
-      setError(err.message);
-      console.error('Error fetching auctions:', err);
-    } finally {
-      setLoading(false);
+    // check is successfull
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  };
+// parse the json response from backend
+    const data = await response.json();
 
-  const applyFiltersAndSearch = () => {
+    // UPDATE FRONTEND STATE with API data
+    // This causes React to re-render the page with new auctions
+    if (data.success) {
+      setAuctions(data.data);// Store all auctions
+      setFilteredAuctions(data.data); // Initially show all auctions
+    } else {
+      throw new Error(data.error || 'Failed to fetch auctions');
+    }
+    // error handlers
+  } catch (err) {
+    setError(err.message);
+    console.error('Error fetching auctions:', err);
+  } finally {
+    // turn off loading state
+    setLoading(false);
+  }
+};
+
+// Call fetchAuctions whenever filters or search changes
+useEffect(() => {
+  fetchAuctions();
+}, [searchQuery, filters]);
+
+ /**
+   * applyFiltersAndSearch 
+   * HOW IT UPDATES DISPLAY:
+   * 1. Takes the full auctions array
+   * 2. Applies each active filter
+   * 3. Calls setFilteredAuctions() with results
+   * 4. React re-renders ProductGrid with filtered data
+   * 5. User sees updated results instantly!
+   */
+    const applyFiltersAndSearch = () => {
+      // starts will all auctions
     let results = [...auctions];
 
-    // Apply search query
+    // SEARCH FILTER - Filter by keyword in title or description
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       results = results.filter(auction =>
@@ -79,28 +140,28 @@ export default function MarketplacePage() {
       );
     }
 
-    // Apply category filter
+    // CATEGORY FILTER - Filter by category
     if (filters.category) {
       results = results.filter(auction =>
         auction.category === filters.category
       );
     }
 
-    // Apply location filter
+    // LOCATION FILTER - Filter by location
     if (filters.location) {
       results = results.filter(auction =>
         auction.location === filters.location
       );
     }
 
-    // Apply colour filter
+    // COLOUR FILTER - Filter by colour
     if (filters.colour) {
       results = results.filter(auction =>
         auction.colour === filters.colour
       );
     }
 
-    // Apply price filters
+    // PRICE RANGE FILTERS - Filter by min/max price
     if (filters.minPrice !== '') {
       results = results.filter(auction =>
         auction.start_price >= parseFloat(filters.minPrice)
@@ -112,19 +173,44 @@ export default function MarketplacePage() {
         auction.start_price <= parseFloat(filters.maxPrice)
       );
     }
-
+// update display 
+// When we call setFilteredAuctions, React knows to re-render
+    // ProductGrid component will receive these filtered results
     setFilteredAuctions(results);
   };
 
+  /**
+   * handleSearch - User search handler
+   * WHEN USER TYPES AND CLICKS SEARCH:
+   * 1. Updates searchQuery state
+   * 2. Updates URL with query parameter
+   * 3. useEffect detects change and runs applyFiltersAndSearch()
+   * 4. Display updates with search results
+   */
   const handleSearch = (query) => {
     setSearchQuery(query);
     setSearchParams(query ? { q: query } : {});
   };
 
+  /**
+   * handleFilterChange - Filter panel handler
+   * 
+   * WHEN USER CHANGES A FILTER:
+   * 1. Updates filters state
+   * 2. useEffect detects change and runs applyFiltersAndSearch()
+   * 3. Display updates with filtered results
+   */
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
   };
-
+/**
+   * handleRefresh - Refresh button handler
+   * 
+   * WHEN USER CLICKS REFRESH:
+   * 1. Clears all filters and search
+   * 2. Calls fetchAuctions() to get fresh data from backend
+   * 3. Display resets to show all auctions
+   */
   const handleRefresh = () => {
     setSearchQuery('');
     setFilters({
@@ -139,6 +225,7 @@ export default function MarketplacePage() {
   };
 
   return (
+    // ui renders on screen
     <main className="marketplace-page">
       <div className="container">
         {/* Header */}
