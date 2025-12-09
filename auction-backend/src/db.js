@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGODB_URI = 'mongodb://localhost:27017/trademe_auctions';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/trademe_auctions';
 
 async function connectDB() {
   try {

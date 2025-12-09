@@ -11,7 +11,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getAuctionById } from '../services/api'
+import { getAuctionById, getQuestions, askQuestion } from '../services/api'
 import Button from '../components/shared/Button'
 import BidModal from '../components/shared/BidModal'
 import { ClockIcon, CalendarIcon, BinocularsIcon, CheckIcon, UserAvatarIcon, SellerAvatarIcon } from '../components/shared/Icons'
@@ -56,6 +56,13 @@ export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState(0)
   const [isBidModalOpen, setIsBidModalOpen] = useState(false)
 
+  // Q&A state
+  const [questions, setQuestions] = useState([])
+  const [questionsLoading, setQuestionsLoading] = useState(false)
+  const [newQuestion, setNewQuestion] = useState('')
+  const [askingQuestion, setAskingQuestion] = useState(false)
+  const [showQuestionInput, setShowQuestionInput] = useState(false)
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -92,6 +99,47 @@ export default function ProductDetailPage() {
 
     return () => clearInterval(interval)
   }, [product])
+
+  // Fetch questions when product loads
+  useEffect(() => {
+    if (!product?._id) return
+
+    const fetchQuestions = async () => {
+      setQuestionsLoading(true)
+      try {
+        const response = await getQuestions(product._id)
+        if (response.success) {
+          setQuestions(response.data)
+        }
+      } catch (err) {
+        console.error('Error fetching questions:', err)
+      } finally {
+        setQuestionsLoading(false)
+      }
+    }
+
+    fetchQuestions()
+  }, [product?._id])
+
+  // Handle asking a question
+  const handleAskQuestion = async () => {
+    if (!newQuestion.trim()) return
+
+    setAskingQuestion(true)
+    try {
+      const response = await askQuestion(product._id, newQuestion.trim())
+      if (response.success) {
+        setQuestions(prev => [...prev, response.data])
+        setNewQuestion('')
+        setShowQuestionInput(false)
+      }
+    } catch (err) {
+      console.error('Error asking question:', err)
+      alert('Failed to submit question. Please try again.')
+    } finally {
+      setAskingQuestion(false)
+    }
+  }
 
   if (loading) {
     return (
@@ -266,47 +314,87 @@ export default function ProductDetailPage() {
 
           {/* Questions & Answers */}
           <div className="product-section">
-            <h3>Questions & Answers (2)</h3>
+            <h3>Questions & Answers ({questions.length})</h3>
             <div className="qa-container">
-              <div className="qa-item">
-                <div className="qa-question">
-                  <div className="qa-avatar">
-                    <UserAvatarIcon size={20} />
+              {questionsLoading ? (
+                <p style={{ textAlign: 'center', color: '#666' }}>Loading questions...</p>
+              ) : questions.length === 0 ? (
+                <p style={{ textAlign: 'center', color: '#666', marginBottom: '16px' }}>
+                  No questions yet. Be the first to ask!
+                </p>
+              ) : (
+                questions.map((q) => (
+                  <div key={q._id} className="qa-item">
+                    <div className="qa-question">
+                      <div className="qa-avatar">
+                        <UserAvatarIcon size={20} />
+                      </div>
+                      <div className="qa-content">
+                        <p className="qa-text">{q.question_text}</p>
+                        <p className="qa-user">
+                          {q.question_user_id?.username || 'Trade Me User'}
+                        </p>
+                      </div>
+                    </div>
+                    {q.answer_text && (
+                      <div className="qa-answer">
+                        <div className="qa-avatar qa-avatar-seller">
+                          <SellerAvatarIcon size={20} />
+                        </div>
+                        <div className="qa-content">
+                          <p className="qa-text">{q.answer_text}</p>
+                          <p className="qa-seller">
+                            {q.answer_user_id?.username || product.seller_id?.username || 'Seller'}
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div className="qa-content">
-                    <p className="qa-text">Which suburb is collection?</p>
-                    <p className="qa-user">Trade Me User</p>
-                  </div>
-                </div>
-                <div className="qa-answer">
-                  <div className="qa-avatar qa-avatar-seller">
-                    <SellerAvatarIcon size={20} />
-                  </div>
-                  <div className="qa-content">
-                    <p className="qa-text">Devonport Peninsula</p>
-                    <p className="qa-seller">Trade Me Seller</p>
-                  </div>
-                </div>
-              </div>
+                ))
+              )}
 
-              <div className="qa-item">
-                <div className="qa-question">
-                  <div className="qa-avatar">
-                    <UserAvatarIcon size={20} />
-                  </div>
-                  <div className="qa-content">
-                    <p className="qa-text">
-                      Is the finish original, or has this solid oak piece been recently stripped or painted?
-                      Can you confirm all drawers slide smoothly?
-                    </p>
-                    <p className="qa-user">Trade Me User</p>
+              {showQuestionInput ? (
+                <div className="qa-input-container">
+                  <textarea
+                    className="qa-input"
+                    placeholder="Type your question here..."
+                    value={newQuestion}
+                    onChange={(e) => setNewQuestion(e.target.value)}
+                    rows={3}
+                    disabled={askingQuestion}
+                  />
+                  <div className="qa-input-actions">
+                    <Button
+                      variant="secondary"
+                      size="medium"
+                      onClick={() => {
+                        setShowQuestionInput(false)
+                        setNewQuestion('')
+                      }}
+                      disabled={askingQuestion}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="primary"
+                      size="medium"
+                      onClick={handleAskQuestion}
+                      disabled={askingQuestion || !newQuestion.trim()}
+                    >
+                      {askingQuestion ? 'Submitting...' : 'Submit Question'}
+                    </Button>
                   </div>
                 </div>
-              </div>
-
-              <Button variant="primary" size="large" fullWidth>
-                Ask a question
-              </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  size="large"
+                  fullWidth
+                  onClick={() => setShowQuestionInput(true)}
+                >
+                  Ask a question
+                </Button>
+              )}
             </div>
           </div>
 

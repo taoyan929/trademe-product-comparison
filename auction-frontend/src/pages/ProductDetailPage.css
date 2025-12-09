@@ -118,7 +118,7 @@
 
 /* Pricing Container - includes button and bid info */
 .product-pricing {
-  background: #ffffff;
+  background: #F5F5F5;
   border: 1px solid #D9D9D9;
   border-radius: 4px;
   padding: 16px;
@@ -437,6 +437,42 @@
   color: #007ACD;
   margin: 0;
   text-align: left;
+}
+
+/* Question Input */
+.qa-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.qa-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.qa-input:focus {
+  outline: none;
+  border-color: #007ACD;
+}
+
+.qa-input:disabled {
+  background: #F5F5F5;
+  color: #999;
+}
+
+.qa-input-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 /* About the Seller - Main Content */

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+require('dotenv').config();
 const { program } = require('commander');
 const { connectDB, disconnectDB } = require('./db');
 const Auction = require('./models/Auction');
