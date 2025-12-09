@@ -16,12 +16,19 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "keywords": ["mongodb", "api", "auction", "express", "seeder"],
+  "keywords": [
+    "mongodb",
+    "api",
+    "auction",
+    "express",
+    "seeder"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "commander": "^12.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^4.21.1",
     "mongoose": "^8.8.3"
   },

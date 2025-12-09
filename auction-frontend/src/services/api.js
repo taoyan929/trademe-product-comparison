@@ -5,7 +5,10 @@
  * All API calls should go through this service.
  */
 
-const API_BASE_URL = 'http://localhost:3000/api';
+// Detect API Base URL (Vite env OR fallback to localhost)
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+
+// Debug log for development
 console.log(">>> api.js LOADED, BASE URL =", API_BASE_URL);
 /**
  * Generic fetch wrapper with error handling
@@ -89,10 +92,46 @@ export async function placeBid(id, amount) {
   });
 }
 
+/**
+ * Get questions for an auction
+ * @param {string} auctionId - Auction ID
+ * @returns {Promise<Object>} Response with questions array
+ */
+export async function getQuestions(auctionId) {
+  return fetchAPI(`/questions/auction/${auctionId}`);
+}
+
+/**
+ * Submit a question for an auction (AI auto-answers if configured)
+ * @param {string} auctionId - Auction ID
+ * @param {string} questionText - The question to ask
+ * @returns {Promise<Object>} Response with question and possibly AI answer
+ */
+export async function askQuestion(auctionId, questionText) {
+  return fetchAPI('/questions', {
+    method: 'POST',
+    body: JSON.stringify({
+      auction_id: auctionId,
+      question_text: questionText,
+    }),
+  });
+}
+
+/**
+ * Check AI auto-answer status
+ * @returns {Promise<Object>} Response with AI configuration status
+ */
+export async function getAIStatus() {
+  return fetchAPI('/questions/ai-status');
+}
+
 export default {
   getAuctions,
   searchAuctions,
   getAuctionById,
   getCategories,
   placeBid,
+  getQuestions,
+  askQuestion,
+  getAIStatus,
 };
