@@ -1,12 +1,7 @@
 /**
- * ProductDetailPage - Dev 2
- *
+ 
  * Product detail page with bidding functionality
- * - Single product view with image gallery
- * - Product details and specifications
- * - Seller information
- * - Questions & Answers section
- * - Bidding functionality
+
  */
 
 import { useState, useEffect } from 'react'

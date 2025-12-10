@@ -1,0 +1,178 @@
+
+/**
+ * WatchlistPage Styles
+ */
+
+.watchlist-page {
+  background-color: #F5F5F5;
+  min-height: calc(100vh - 80px);
+  padding: 40px 0 64px;
+}
+
+/* Header Section */
+.watchlist-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.watchlist-page__title {
+  color: #44413d;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.watchlist-page__subtitle {
+  color: #65605d;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Product Grid */
+.watchlist-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.watchlist-page__item {
+  cursor: pointer;
+}
+
+/* Watchlist Item Info */
+.watchlist-item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid #D9D9D9;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+
+.watchlist-added-date {
+  color: #76716D;
+  font-size: 12px;
+  margin: 0;
+}
+
+.watchlist-remove-btn {
+  background: none;
+  border: none;
+  color: #E34647;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.watchlist-remove-btn:hover {
+  background-color: #E3464720;
+}
+
+/* Loading State */
+.watchlist-page__loading {
+  text-align: center;
+  padding: 64px 24px;
+  color: #65605d;
+  font-size: 16px;
+}
+
+/* Error State */
+.watchlist-page__error {
+  text-align: center;
+  padding: 48px 24px;
+  background: #ffffff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.watchlist-page__error svg {
+  margin-bottom: 16px;
+}
+
+.watchlist-page__error h3 {
+  color: #44413d;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.watchlist-page__error p {
+  color: #65605d;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+/* Empty State */
+.watchlist-page__empty {
+  text-align: center;
+  padding: 64px 24px;
+  background: #ffffff;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.watchlist-page__empty svg {
+  margin-bottom: 24px;
+}
+
+.watchlist-page__empty h3 {
+  color: #44413d;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.watchlist-page__empty p {
+  color: #65605d;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .watchlist-page {
+    padding: 24px 0 48px;
+  }
+
+  .watchlist-page__header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .watchlist-page__title {
+    font-size: 24px;
+  }
+
+  .watchlist-page__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .watchlist-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .watchlist-page__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .watchlist-page__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

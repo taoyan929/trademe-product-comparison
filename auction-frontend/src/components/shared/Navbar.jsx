@@ -81,7 +81,11 @@ export default function Navbar() {
             </svg>
             Notifications
           </button>
-          <button className="navbar__icon-btn" aria-label="Watchlist">
+          <Link
+            to="/watchlist"
+            className="navbar__icon-btn"
+            aria-label="watchlist"
+          >
             <svg
               width="14"
               height="14"
@@ -94,8 +98,8 @@ export default function Navbar() {
                 fill="#2F2C28"
               />
             </svg>
-            Watchlist
-          </button>
+            watchlist
+          </Link>
 
           <button className="navbar__icon-btn" aria-label="Favourites">
             <svg

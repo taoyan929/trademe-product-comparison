@@ -14,6 +14,7 @@ import HomePage from './pages/HomePage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import ComparisonPage from './pages/ComparisonPage'
 import MarketplacePage from './pages/MarketplacePage'
+import WatchlistPage from './pages/WatchlistPage'
 import Footer from './components/shared/Footer'
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/marketplace" element={<MarketplacePage />} />
 
         <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/watchlist" element={<WatchlistPage />} />  
         <Route path="/comparison" element={<ComparisonPage />} />
 
       </Routes>
