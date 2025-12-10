@@ -8,11 +8,13 @@
     "start_price": 450,
     "reserve_price": 600,
     "image": "https://picsum.photos/seed/item1/400/300",
-    "closing_time": "2025-12-22T10:30:00.000Z",
     "buy_now_price": 750,
     "condition": "Used",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 7,
+    "current_bid": 475
   },
   {
     "title": "Wooden Study Desk",
@@ -20,22 +22,34 @@
     "category": "Furniture",
     "location": "Wellington",
     "colour": "Brown",
-    "start_price": 50,
-    "reserve_price": 150,
-    "condition": "Used",
-    "images": [
-      "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800",
-      "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up", "location": "Ponsonby, Auckland", "price": 0 },
-      { "method": "Courier", "price": 35 }
-    ],
-    "payment_methods": ["Cash", "Bank transfer"],
-    "seller_username": "HomeDecorPro",
-    "end_date_days_from_now": 3,
-    "bid_count": 0,
-    "watchers_count": 5
+
+  "start_price": 30,
+  "reserve_price": 60,
+  "condition": "Used",
+
+  "image": "https://picsum.photos/seed/item2/400/300",
+  "images": [
+    "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800",
+    "https://images.unsplash.com/photo-1595428774223-ef52624210d2?w=800"
+  ],
+
+  "shipping_options": [
+    { "method": "Pick up", "location": "Ponsonby, Auckland", "price": 0 },
+    { "method": "Courier", "price": 35 }
+  ],
+
+  "shipping_price": 15,
+
+  "payment_methods": ["Cash", "Bank transfer"],
+
+  "buy_now_price": 90,
+  "bid_count": 0,
+  "view_count": 0,
+  "watchers_count": 5,
+
+  "seller_username": "HomeDecorPro",
+  "end_date_days_from_now": 5
+
   },
   {
     "title": "Sony PlayStation 5 Console",
@@ -160,22 +174,35 @@
     "category": "Electronics",
     "location": "Christchurch",
     "colour": "Black",
-    "start_price": 1500,
-    "reserve_price": 2200,
-    "condition": "Used",
-    "images": [
-      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800",
-      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up", "location": "Takapuna, Auckland", "price": 0 },
-      { "method": "Courier (insured)", "price": 18 }
-    ],
-    "payment_methods": ["Ping", "Bank transfer", "Cash"],
-    "seller_username": "TechGuru88",
-    "end_date_days_from_now": 6,
-    "bid_count": 0,
-    "watchers_count": 19
+
+  "start_price": 250,
+  "reserve_price": 400,
+  "condition": "Used",
+
+  "image": "https://picsum.photos/seed/item3/400/300",
+  "images": [
+    "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800",
+    "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800"
+  ],
+
+  "buy_now_price": 520,
+  "current_bid": 280,
+
+  "shipping_price": 15,
+  "shipping_options": [
+    { "method": "Pick up", "location": "Takapuna, Auckland", "price": 0 },
+    { "method": "Courier (insured)", "price": 18 }
+  ],
+
+  "payment_methods": ["Ping", "Bank transfer", "Cash"],
+
+  "view_count": 0,
+  "bid_count": 0,
+  "watchers_count": 19,
+
+  "seller_username": "TechGuru88",
+  "end_date_days_from_now": 6
+
   },
   {
     "title": "Mountain Bike – Shimano 21 Speed",
@@ -186,11 +213,13 @@
     "start_price": 80,
     "reserve_price": 120,
     "image": "https://picsum.photos/seed/item4/400/300",
-    "closing_time": "2025-12-24T08:00:00.000Z",
     "buy_now_price": 180,
     "condition": "Used",
     "shipping_price": 10,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "BikeEnthusiast",
+    "end_date_days_from_now": 8,
+    "current_bid": 95
   },
   {
     "title": "Sony WH-1000XM4 Noise Cancelling Headphones",
@@ -201,11 +230,13 @@
     "start_price": 120,
     "reserve_price": 180,
     "image": "https://picsum.photos/seed/item5/400/300",
-    "closing_time": "2025-12-22T21:30:00.000Z",
     "buy_now_price": 260,
     "condition": "Like New",
     "shipping_price": 5,
-    "view_count": 0
+    "view_count": 0,
+    "seller_username": "GadgetSeller",
+    "end_date_days_from_now": 4,
+    "current_bid": 150
   },
   {
     "title": "Dining Table Set (4 Chairs)",
@@ -213,21 +244,32 @@
     "category": "Furniture",
     "location": "Dunedin",
     "colour": "Brown",
-    "start_price": 200,
-    "reserve_price": 500,
-    "condition": "Used",
-    "images": [
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800",
-      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up only", "location": "Manukau, Auckland", "price": 0 }
-    ],
-    "payment_methods": ["Cash", "Bank transfer"],
-    "seller_username": "HomeDecorPro",
-    "end_date_days_from_now": 3,
-    "bid_count": 1,
-    "current_bid": 220,
-    "watchers_count": 9
+  "start_price": 60,
+  "reserve_price": 100,
+  "condition": "Used",
+
+  "image": "https://picsum.photos/seed/item6/400/300",
+  "images": [
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800"
+  ],
+
+  "buy_now_price": 150,
+  "current_bid": 220,
+  "bid_count": 1,
+  "watchers_count": 9,
+
+  "shipping_price": 15,
+  "shipping_options": [
+    { "method": "Pick up only", "location": "Manukau, Auckland", "price": 0 }
+  ],
+
+  "payment_methods": ["Cash", "Bank transfer"],
+
+  "view_count": 0,
+  "seller_username": "HomeDecorPro",
+
+  "end_date_days_from_now": 10
+
   }
 ]

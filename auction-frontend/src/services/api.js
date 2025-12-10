@@ -5,7 +5,7 @@
  * All API calls should go through this service.
  */
 
-// Detect API Base URL (Vite env OR fallback to localhost)
+// Detect API Base URL (Vite env OR fallback to localhost)git
 
 export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
