@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './WatchlistPage.css';
 
 export default function WatchlistPage() {
@@ -134,9 +134,9 @@ export default function WatchlistPage() {
       <div className="container">
         {/* Breadcrumbs  */}
         <nav className="watchlist-breadcrumbs">
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
           <span> / </span>
-          <a href="/my-trade-me">My TradeMe</a>
+          <Link to="/my-trade-me">My TradeMe</Link>
           <span> / </span>
           <span>Watchlist</span>
         </nav>
@@ -242,7 +242,7 @@ export default function WatchlistPage() {
                           {product.reserve_met ? 'Reserve met' : 'Reserve not met'}
                         </div>
                         <div className="watchlist-item__price-amount">
-                          ${product.reserve_price ? product.reserve_price.toFixed(2) : product.start_price.toFixed(2)}
+                          ${(product.reserve_price ?? product.start_price ?? 0).toFixed(2)}
                         </div>
                       </div>
 

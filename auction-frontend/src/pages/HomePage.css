@@ -30,11 +30,10 @@
 
 /* Search Bar Container */
 .home-landing__search {
-  max-width: 1,056px;
+  max-width: 1056px;
   height: 56px;
-  top:128px;
-  border: 1px;
   margin: 0 auto 48px;
+  border: 1px;
 }
 
 
@@ -52,6 +51,7 @@
   gap: 16px;
   /* max-width: 1040px; */
   margin: 0 auto 50px;
+  width: 1056px;
 }
 
 .category-card {
@@ -66,7 +66,7 @@
   gap: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
-  /* text-align: left; */
+  text-align:left;
   font-size: 18px;
   font-weight: 600;
   color: #44413d;
