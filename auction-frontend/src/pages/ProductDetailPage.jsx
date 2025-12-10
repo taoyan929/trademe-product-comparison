@@ -63,6 +63,11 @@ export default function ProductDetailPage() {
   const [watchlistLoading, setWatchlistLoading] = useState(false)
   const DEMO_USER_ID = '692f8df9790ef72851af2312'
 
+  // Bid history state
+  const [showBidHistory, setShowBidHistory] = useState(false)
+  const [bidHistory, setBidHistory] = useState([])
+  const [bidHistoryLoading, setBidHistoryLoading] = useState(false)
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -182,6 +187,25 @@ export default function ProductDetailPage() {
       alert('Failed to update watchlist. Please try again.')
     } finally {
       setWatchlistLoading(false)
+    }
+  }
+
+  // Handle opening bid history
+  const handleShowBidHistory = async () => {
+    if ((product.bid_count || 0) === 0) return
+
+    setShowBidHistory(true)
+    setBidHistoryLoading(true)
+    try {
+      const response = await fetch(`http://localhost:3000/api/bids/auction/${product._id}`)
+      const result = await response.json()
+      if (result.success) {
+        setBidHistory(result.data)
+      }
+    } catch (err) {
+      console.error('Error fetching bid history:', err)
+    } finally {
+      setBidHistoryLoading(false)
     }
   }
 
@@ -566,7 +590,17 @@ export default function ProductDetailPage() {
               <p style={{ fontSize: '16px', color: '#65605d', textAlign: 'center', margin: '0 0 4px 0' }}>
                 {product.reserve_met ? 'Reserve met' : 'Reserve not met'}
               </p>
-              <p style={{ fontSize: '16px', color: '#007acd', textAlign: 'center', textDecoration: 'underline', margin: '0' }}>
+              <p
+                style={{
+                  fontSize: '16px',
+                  color: (product.bid_count || 0) > 0 ? '#007acd' : '#65605d',
+                  textAlign: 'center',
+                  textDecoration: (product.bid_count || 0) > 0 ? 'underline' : 'none',
+                  margin: '0',
+                  cursor: (product.bid_count || 0) > 0 ? 'pointer' : 'default'
+                }}
+                onClick={handleShowBidHistory}
+              >
                 {(product.bid_count || 0) === 0
                   ? 'No bids'
                   : `${product.bid_count} bid${product.bid_count !== 1 ? 's' : ''}`}
@@ -654,6 +688,49 @@ export default function ProductDetailPage() {
         currentBid={product.current_bid || 0}
         timeRemaining={timeRemaining}
       />
+
+      {/* Bid History Modal */}
+      {showBidHistory && (
+        <div className="bid-history-overlay" onClick={() => setShowBidHistory(false)}>
+          <div className="bid-history-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setShowBidHistory(false)}>×</button>
+            <h2>Bid History</h2>
+            <p className="bid-history-subtitle">{product.title}</p>
+
+            {bidHistoryLoading ? (
+              <p className="bid-history-loading">Loading bids...</p>
+            ) : bidHistory.length === 0 ? (
+              <p className="bid-history-empty">No bids yet</p>
+            ) : (
+              <div className="bid-history-list">
+                <div className="bid-history-header">
+                  <span>Bidder</span>
+                  <span>Amount</span>
+                  <span>Time</span>
+                </div>
+                {bidHistory.map((bid, index) => (
+                  <div key={bid._id} className={`bid-history-row ${index === 0 ? 'winning' : ''}`}>
+                    <span className="bidder-name">
+                      {bid.bidder_id?.username || 'Anonymous'}
+                      {index === 0 && <span className="winning-badge">Leading</span>}
+                    </span>
+                    <span className="bid-amount">${bid.amount.toFixed(2)}</span>
+                    <span className="bid-time">
+                      {new Date(bid.bid_time).toLocaleString('en-NZ', {
+                        day: 'numeric',
+                        month: 'short',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                      })}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </main>
   )
 }

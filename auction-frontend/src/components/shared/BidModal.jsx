@@ -199,11 +199,11 @@ export default function BidModal({
             <input
               id="bidAmount"
               type="number"
-              step="0.01"
+              step="1"
               min={minBid}
               value={bidAmount}
               onChange={(e) => setBidAmount(e.target.value)}
-              placeholder={`$${suggestedBid.toFixed(2)}`}
+              placeholder={`$${suggestedBid.toFixed(0)}`}
               className="bid-input"
               required
             />
@@ -228,7 +228,7 @@ export default function BidModal({
               <div className="auto-bid-input">
                 <input
                   type="number"
-                  step="0.01"
+                  step="1"
                   min={bidAmount}
                   value={maxAutoBid}
                   onChange={(e) => setMaxAutoBid(e.target.value)}
