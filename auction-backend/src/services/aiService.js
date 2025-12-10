@@ -9,7 +9,8 @@ const AI_CONFIG = {
   OLLAMA_DEFAULT_URL: 'http://localhost:11434',
   OLLAMA_DEFAULT_PORT: 11434,
   HTTPS_PORT: 443,
-  OLLAMA_MODEL: 'gpt-oss:20b'
+  OLLAMA_DEFAULT_MODEL: 'gpt-oss:20b',
+  REQUEST_TIMEOUT_MS: 30000
 };
 
 class AIService {
@@ -18,7 +19,7 @@ class AIService {
     this.geminiKey = process.env.GEMINI_API_KEY;
     this.geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
     this.ollamaUrl = process.env.OLLAMA_URL || AI_CONFIG.OLLAMA_DEFAULT_URL;
-    this.ollamaModel = AI_CONFIG.OLLAMA_MODEL;
+    this.ollamaModel = process.env.OLLAMA_MODEL || AI_CONFIG.OLLAMA_DEFAULT_MODEL;
   }
 
   isConfigured() {
@@ -137,7 +138,8 @@ INSTRUCTIONS:
         headers: {
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(requestBody)
-        }
+        },
+        timeout: AI_CONFIG.REQUEST_TIMEOUT_MS
       }, (res) => {
         let data = '';
         res.on('data', chunk => data += chunk);
@@ -157,6 +159,10 @@ INSTRUCTIONS:
         });
       });
 
+      req.on('timeout', () => {
+        req.destroy();
+        reject(new Error('Gemini API request timed out'));
+      });
       req.on('error', reject);
       req.write(requestBody);
       req.end();
@@ -185,6 +191,7 @@ INSTRUCTIONS:
         port: urlObj.port || (isHttps ? AI_CONFIG.HTTPS_PORT : AI_CONFIG.OLLAMA_DEFAULT_PORT),
         path: urlObj.pathname,
         method: 'POST',
+        timeout: AI_CONFIG.REQUEST_TIMEOUT_MS,
         headers: {
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(requestBody)
@@ -208,6 +215,10 @@ INSTRUCTIONS:
         });
       });
 
+      req.on('timeout', () => {
+        req.destroy();
+        reject(new Error('Ollama request timed out'));
+      });
       req.on('error', (e) => {
         reject(new Error(`Ollama connection failed: ${e.message}. Is Ollama running?`));
       });
