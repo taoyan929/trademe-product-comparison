@@ -3,12 +3,8 @@
  *
 * WHAT THIS PAGE DOES:
  * This is the main landing page users see when they visit the site.
- * It shows a search bar, category navigation cards, and "cool auctions" section.
- * 
- * API INTEGRATION - HOW IT MEETS PHASE 2 REQUIREMENTS:
- * When this page loads, it automatically fetches auction data from the MongoDB backend
- * and displays it on the screen. This demonstrates the "API call updates frontend display" requirement.
- * 
+ 
+ 
  * THE FLOW:
  * 1. Page loads → useEffect runs
  * 2. fetchCoolAuctions() makes API call to backend
@@ -152,33 +148,7 @@ export default function HomePage() {
       ),
       path: "/marketplace?category=Services",
     },
-    {
-      id: "browse",
-      name: "Browse all",
-      icon: (
-        <svg
-          width="16"
-          height="17"
-          viewBox="0 0 16 17"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M14.9287 16L9.57129 10.6428L14.9287 16Z" fill="black" />
-          <path
-            d="M14.9287 16L9.57129 10.6428"
-            stroke="#2F2C28"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M6.35737 11.7144C9.31617 11.7144 11.7147 9.31587 11.7147 6.35718C11.7147 3.39849 9.31617 1 6.35737 1C3.39858 1 1 3.39849 1 6.35718C1 9.31587 3.39858 11.7144 6.35737 11.7144Z"
-            stroke="#2F2C28"
-            strokeWidth="2"
-          />
-        </svg>
-      ),
-      path: "/marketplace",
-    },
+   
   ];
 
   // Fetch cool auctions on component mount
@@ -263,7 +233,6 @@ export default function HomePage() {
   };
 
   const handleBookmarkClick = (productId) => {
-    // TODO: Implement watchlist functionality - This will be connected to the watchlist API in the future
     console.log('Add to watchlist:', productId);
   };
 

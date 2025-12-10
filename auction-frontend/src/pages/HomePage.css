@@ -30,20 +30,33 @@
 
 /* Search Bar Container */
 .home-landing__search {
-  max-width: 800px;
+  max-width: 1,056px;
+  height: 56px;
+  top:128px;
+  border: 1px;
   margin: 0 auto 48px;
+}
+
+
+
+.search-bar_button {
+  width: 100px;
+  height: 40px;
+
 }
 
 /* Category Cards Grid */
 .home-landing__categories {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
-  max-width: 800px;
-  margin: 0 auto 64px;
+  /* max-width: 1040px; */
+  margin: 0 auto 50px;
 }
 
 .category-card {
+  top: 200px;
+  /* left: 836px; */
   background: #ffffff;
   border: 1px solid #D9D9D9;
   border-radius: 8px;
@@ -53,10 +66,12 @@
   gap: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
+  /* text-align: left; */
   font-size: 18px;
   font-weight: 600;
   color: #44413d;
+  /* width: 192px; */
+  height: 56px;
 }
 
 .category-card:hover {
@@ -97,7 +112,7 @@
 
 /* Cool Auctions Section */
 .home-landing__section {
-  max-width: 1200px;
+  max-width: 1056px;
   margin: 0 auto;
 }
 
@@ -140,6 +155,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-top: 24px;
+  width: 320px;
 }
 
 /* Loading and Empty States */

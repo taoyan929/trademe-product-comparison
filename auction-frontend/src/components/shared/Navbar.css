@@ -1,6 +1,5 @@
 /**
  * Navbar Styles
- * Based on Trade Me UI Kit
  */
 
 .navbar {
@@ -17,6 +16,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  height: 72px;
 }
 
 .navbar__logo a {
