@@ -244,7 +244,7 @@ export default function BidModal({
             <div className="auto-bid-toggle">
               <label htmlFor="autoBid">
                 Set auto bid
-                <span className="info-icon">i</span>
+                <span className="info-icon">?</span>
               </label>
               <input
                 id="autoBid"

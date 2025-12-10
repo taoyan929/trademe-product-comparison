@@ -604,7 +604,7 @@ export default function ProductDetailPage() {
               >
                 {(product.bid_count || 0) === 0
                   ? 'No bids'
-                  : `${product.bid_count} bid${product.bid_count !== 1 ? 's' : ''}`}
+                  : 'View history'}
               </p>
             </div>
           </div>
