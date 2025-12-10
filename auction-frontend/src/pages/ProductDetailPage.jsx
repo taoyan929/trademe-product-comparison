@@ -12,6 +12,8 @@ import BidModal from '../components/shared/BidModal'
 import { ClockIcon, CalendarIcon, BinocularsIcon, CheckIcon, UserAvatarIcon, SellerAvatarIcon } from '../components/shared/Icons'
 import './ProductDetailPage.css'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+
 // Helper function to calculate time remaining
 const getTimeRemaining = (endDate) => {
   const now = new Date()
@@ -68,28 +70,29 @@ export default function ProductDetailPage() {
   const [bidHistory, setBidHistory] = useState([])
   const [bidHistoryLoading, setBidHistoryLoading] = useState(false)
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setLoading(true)
-        const response = await getAuctionById(id)
+  // Fetch product data
+  const fetchProduct = async (showLoadingState = true) => {
+    try {
+      if (showLoadingState) setLoading(true)
+      const response = await getAuctionById(id)
 
-        if (response.success) {
-          setProduct(response.data)
-          // Support both end_date and closing_time
-          const endTime = response.data.end_date || response.data.closing_time
-          setTimeRemaining(getTimeRemaining(endTime))
-        } else {
-          throw new Error(response.error || 'Failed to fetch product')
-        }
-      } catch (err) {
-        setError(err.message)
-        console.error('Error fetching product:', err)
-      } finally {
-        setLoading(false)
+      if (response.success) {
+        setProduct(response.data)
+        // Support both end_date and closing_time
+        const endTime = response.data.end_date || response.data.closing_time
+        setTimeRemaining(getTimeRemaining(endTime))
+      } else {
+        throw new Error(response.error || 'Failed to fetch product')
       }
+    } catch (err) {
+      setError(err.message)
+      console.error('Error fetching product:', err)
+    } finally {
+      if (showLoadingState) setLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchProduct()
   }, [id])
 
@@ -133,7 +136,7 @@ export default function ProductDetailPage() {
     const checkWatchlistStatus = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/watchlist/check?user_id=${DEMO_USER_ID}&auction_id=${product._id}`
+          `${API_BASE_URL}/watchlist/check?user_id=${DEMO_USER_ID}&auction_id=${product._id}`
         )
         const result = await response.json()
         if (result.success) {
@@ -155,7 +158,7 @@ export default function ProductDetailPage() {
     try {
       if (isWatching) {
         // Remove from watchlist
-        const response = await fetch('http://localhost:3000/api/watchlist', {
+        const response = await fetch(`${API_BASE_URL}/watchlist`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -169,7 +172,7 @@ export default function ProductDetailPage() {
         }
       } else {
         // Add to watchlist
-        const response = await fetch('http://localhost:3000/api/watchlist', {
+        const response = await fetch(`${API_BASE_URL}/watchlist`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -197,7 +200,7 @@ export default function ProductDetailPage() {
     setShowBidHistory(true)
     setBidHistoryLoading(true)
     try {
-      const response = await fetch(`http://localhost:3000/api/bids/auction/${product._id}`)
+      const response = await fetch(`${API_BASE_URL}/bids/auction/${product._id}`)
       const result = await response.json()
       if (result.success) {
         setBidHistory(result.data)
@@ -684,6 +687,8 @@ export default function ProductDetailPage() {
       <BidModal
         isOpen={isBidModalOpen}
         onClose={() => setIsBidModalOpen(false)}
+        onBidSuccess={() => fetchProduct(false)}
+        userId={DEMO_USER_ID}
         product={product}
         currentBid={product.current_bid || 0}
         timeRemaining={timeRemaining}
@@ -694,40 +699,45 @@ export default function ProductDetailPage() {
         <div className="bid-history-overlay" onClick={() => setShowBidHistory(false)}>
           <div className="bid-history-modal" onClick={(e) => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setShowBidHistory(false)}>×</button>
-            <h2>Bid History</h2>
-            <p className="bid-history-subtitle">{product.title}</p>
 
-            {bidHistoryLoading ? (
-              <p className="bid-history-loading">Loading bids...</p>
-            ) : bidHistory.length === 0 ? (
-              <p className="bid-history-empty">No bids yet</p>
-            ) : (
-              <div className="bid-history-list">
-                <div className="bid-history-header">
-                  <span>Bidder</span>
-                  <span>Amount</span>
-                  <span>Time</span>
-                </div>
-                {bidHistory.map((bid, index) => (
-                  <div key={bid._id} className={`bid-history-row ${index === 0 ? 'winning' : ''}`}>
-                    <span className="bidder-name">
-                      {bid.bidder_id?.username || 'Anonymous'}
-                      {index === 0 && <span className="winning-badge">Leading</span>}
-                    </span>
-                    <span className="bid-amount">${bid.amount.toFixed(2)}</span>
-                    <span className="bid-time">
-                      {new Date(bid.bid_time).toLocaleString('en-NZ', {
-                        day: 'numeric',
-                        month: 'short',
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        hour12: true
-                      })}
-                    </span>
+            <div className="bid-history-header-section">
+              <h2>Bid History</h2>
+              <p className="bid-history-subtitle">{product.title}</p>
+            </div>
+
+            <div className="bid-history-content">
+              {bidHistoryLoading ? (
+                <p className="bid-history-loading">Loading bids...</p>
+              ) : bidHistory.length === 0 ? (
+                <p className="bid-history-empty">No bids yet</p>
+              ) : (
+                <div className="bid-history-list">
+                  <div className="bid-history-list-header">
+                    <span>Bidder</span>
+                    <span>Amount</span>
+                    <span>Time</span>
                   </div>
-                ))}
-              </div>
-            )}
+                  {bidHistory.map((bid, index) => (
+                    <div key={bid._id} className={`bid-history-row ${index === 0 ? 'winning' : ''}`}>
+                      <span className="bidder-name">
+                        {bid.bidder_id?.username || 'Anonymous'}
+                        {index === 0 && <span className="winning-badge">Leading</span>}
+                      </span>
+                      <span className="bid-amount">${bid.amount.toFixed(2)}</span>
+                      <span className="bid-time">
+                        {new Date(bid.bid_time).toLocaleString('en-NZ', {
+                          day: 'numeric',
+                          month: 'short',
+                          hour: 'numeric',
+                          minute: '2-digit',
+                          hour12: true
+                        })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
