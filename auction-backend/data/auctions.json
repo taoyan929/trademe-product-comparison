@@ -22,187 +22,32 @@
     "category": "Furniture",
     "location": "Wellington",
     "colour": "Brown",
-
-  "start_price": 30,
-  "reserve_price": 60,
-  "condition": "Used",
-
-  "image": "https://picsum.photos/seed/item2/400/300",
-  "images": [
-    "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800",
-    "https://images.unsplash.com/photo-1595428774223-ef52624210d2?w=800"
-  ],
-
-  "shipping_options": [
-    { "method": "Pick up", "location": "Ponsonby, Auckland", "price": 0 },
-    { "method": "Courier", "price": 35 }
-  ],
-
-  "shipping_price": 15,
-
-  "payment_methods": ["Cash", "Bank transfer"],
-
-  "buy_now_price": 90,
-  "bid_count": 0,
-  "view_count": 0,
-  "watchers_count": 5,
-
-  "seller_username": "HomeDecorPro",
-  "end_date_days_from_now": 5
-
-  },
-  {
-    "title": "Sony PlayStation 5 Console",
-    "description": "Brand new PS5 disc edition, unopened in original packaging. Purchased in 2022. Includes one DualSense controller. Full warranty applies.",
-    "category": "Electronics",
-    "location": "Auckland CBD",
-    "colour": "White",
-    "start_price": 500,
-    "reserve_price": 750,
-    "condition": "New",
-    "images": [
-      "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up", "location": "Auckland CBD", "price": 0 },
-      { "method": "Courier (tracked)", "price": 15 }
-    ],
-    "payment_methods": ["Ping", "Credit Card", "Cash"],
-    "seller_username": "TechGuru88",
-    "end_date_days_from_now": 5,
-    "bid_count": 8,
-    "current_bid": 620,
-    "watchers_count": 23
-  },
-  {
-    "title": "Mountain Bike - Giant Talon 2",
-    "description": "2022 Giant Talon 2 hardtail mountain bike. Size medium. Hydraulic disc brakes, 27.5 inch wheels. Ridden only a handful of times, excellent condition.",
-    "category": "Sports & Outdoors",
-    "location": "Albany",
-    "colour": "Black",
-    "start_price": 400,
-    "reserve_price": 600,
-    "condition": "Used",
-    "images": [
-      "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=800",
-      "https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=800",
-      "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up", "location": "Albany, Auckland", "price": 0 },
-      { "method": "Courier", "price": 25 }
-    ],
-    "payment_methods": ["Ping", "Cash", "Bank transfer"],
-    "seller_username": "BikeEnthusiast",
-    "end_date_days_from_now": 2,
-    "bid_count": 3,
-    "current_bid": 450,
-    "watchers_count": 11
-  },
-  {
-    "title": "Apple MacBook Pro 14-inch M3",
-    "description": "MacBook Pro 14-inch with M3 chip, 16GB RAM, 512GB SSD. Space Grey. First purchased in 2022, includes original charger and box. AppleCare+ until 2026.",
-    "category": "Electronics",
-    "location": "Newmarket",
-    "colour": "Grey",
-    "start_price": 2000,
-    "reserve_price": 2800,
-    "condition": "Refurbished",
-    "images": [
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
-      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up", "location": "Newmarket, Auckland", "price": 0 },
-      { "method": "Courier (insured)", "price": 20 }
-    ],
-    "payment_methods": ["Ping", "Bank transfer"],
-    "seller_username": "GadgetSeller",
-    "end_date_days_from_now": 7,
-    "bid_count": 12,
-    "current_bid": 2300,
-    "watchers_count": 34
-  },
-  {
-    "title": "IKEA KALLAX Shelf Unit",
-    "description": "White KALLAX 4x4 cube shelf unit. Assembled but in great condition. Selling due to moving. Pickup only from Auckland CBD.",
-    "category": "Furniture",
-    "location": "Auckland CBD",
-    "colour": "White",
     "start_price": 30,
-    "reserve_price": 80,
+    "reserve_price": 60,
+    "image": "https://picsum.photos/seed/item2/400/300",
+    "buy_now_price": 90,
     "condition": "Used",
-    "images": [
-      "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up only", "location": "Auckland CBD", "price": 0 }
-    ],
-    "payment_methods": ["Cash"],
+    "shipping_price": 15,
+    "view_count": 0,
     "seller_username": "HomeDecorPro",
-    "end_date_days_from_now": 1,
-    "bid_count": 2,
-    "current_bid": 45,
-    "watchers_count": 7
+    "end_date_days_from_now": 5
   },
   {
-    "title": "Dyson V15 Detect Vacuum",
-    "description": "Dyson V15 Detect cordless vacuum cleaner. Includes all original attachments and wall mount. Purchased new 1 year ago. Battery holds full charge.",
-    "category": "Home & Garden",
-    "location": "Mt Eden",
-    "colour": "Purple",
-    "start_price": 400,
-    "reserve_price": 650,
-    "condition": "Used",
-    "images": [
-      "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=800"
-    ],
-    "shipping_options": [
-      { "method": "Pick up", "location": "Mt Eden, Auckland", "price": 0 },
-      { "method": "Courier", "price": 12 }
-    ],
-    "payment_methods": ["Ping", "Cash", "Bank transfer"],
-    "seller_username": "Phil202",
-    "end_date_days_from_now": 4,
-    "bid_count": 5,
-    "current_bid": 480,
-    "watchers_count": 15
-  },
-  {
-    "title": "Canon EOS R6 Camera Body",
-    "description": "Canon EOS R6 mirrorless camera body only. Low shutter count (5,200). Includes original box, battery, charger, and strap. No scratches or damage.",
+    "title": "Samsung 55-inch 4K Smart TV",
+    "description": "Samsung UHD TV with HDR10. Excellent condition, no dead pixels.",
     "category": "Electronics",
     "location": "Christchurch",
     "colour": "Black",
-
-  "start_price": 250,
-  "reserve_price": 400,
-  "condition": "Used",
-
-  "image": "https://picsum.photos/seed/item3/400/300",
-  "images": [
-    "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800",
-    "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800"
-  ],
-
-  "buy_now_price": 520,
-  "current_bid": 280,
-
-  "shipping_price": 15,
-  "shipping_options": [
-    { "method": "Pick up", "location": "Takapuna, Auckland", "price": 0 },
-    { "method": "Courier (insured)", "price": 18 }
-  ],
-
-  "payment_methods": ["Ping", "Bank transfer", "Cash"],
-
-  "view_count": 0,
-  "bid_count": 0,
-  "watchers_count": 19,
-
-  "seller_username": "TechGuru88",
-  "end_date_days_from_now": 6
-
+    "start_price": 250,
+    "reserve_price": 400,
+    "image": "https://picsum.photos/seed/item3/400/300",
+    "buy_now_price": 520,
+    "condition": "Used",
+    "shipping_price": 15,
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 6,
+    "current_bid": 280
   },
   {
     "title": "Mountain Bike – Shimano 21 Speed",
@@ -244,32 +89,161 @@
     "category": "Furniture",
     "location": "Dunedin",
     "colour": "Brown",
-  "start_price": 60,
-  "reserve_price": 100,
-  "condition": "Used",
-
-  "image": "https://picsum.photos/seed/item6/400/300",
-  "images": [
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800",
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800"
-  ],
-
-  "buy_now_price": 150,
-  "current_bid": 220,
-  "bid_count": 1,
-  "watchers_count": 9,
-
-  "shipping_price": 15,
-  "shipping_options": [
-    { "method": "Pick up only", "location": "Manukau, Auckland", "price": 0 }
-  ],
-
-  "payment_methods": ["Cash", "Bank transfer"],
-
-  "view_count": 0,
-  "seller_username": "HomeDecorPro",
-
-  "end_date_days_from_now": 10
-
+    "start_price": 60,
+    "reserve_price": 100,
+    "image": "https://picsum.photos/seed/item6/400/300",
+    "buy_now_price": 150,
+    "condition": "Used",
+    "shipping_price": 15,
+    "view_count": 0,
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 10
+  },
+  {
+    "title": "MacBook Pro 14-inch (M1 Pro)",
+    "description": "M1 Pro 14-inch MacBook Pro. 16GB RAM, 512GB SSD. Excellent condition.",
+    "category": "Electronics",
+    "location": "Auckland",
+    "colour": "Silver",
+    "start_price": 900,
+    "reserve_price": 1200,
+    "image": "https://picsum.photos/seed/item7/400/300",
+    "buy_now_price": 1500,
+    "condition": "Like New",
+    "shipping_price": 10,
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 3,
+    "current_bid": 950
+  },
+  {
+    "title": "Office Chair Ergonomic Mesh",
+    "description": "Ergonomic mesh office chair with lumbar support.",
+    "category": "Furniture",
+    "location": "Wellington",
+    "colour": "Black",
+    "start_price": 20,
+    "reserve_price": 40,
+    "image": "https://picsum.photos/seed/item8/400/300",
+    "buy_now_price": 70,
+    "condition": "Used",
+    "shipping_price": 10,
+    "view_count": 0,
+    "seller_username": "Phil202",
+    "end_date_days_from_now": 5
+  },
+  {
+    "title": "Canon EOS 80D DSLR Camera",
+    "description": "Great condition DSLR with 18–55mm lens. Perfect for beginners.",
+    "category": "Photography",
+    "location": "Auckland",
+    "colour": "Black",
+    "start_price": 300,
+    "reserve_price": 400,
+    "image": "https://picsum.photos/seed/item9/400/300",
+    "buy_now_price": 550,
+    "condition": "Refurbished",
+    "shipping_price": 10,
+    "view_count": 0,
+    "seller_username": "GadgetSeller",
+    "end_date_days_from_now": 7
+  },
+  {
+    "title": "Xbox Series S",
+    "description": "Xbox Series S console with one controller. Works perfectly.",
+    "category": "Gaming",
+    "location": "Christchurch",
+    "colour": "White",
+    "start_price": 180,
+    "reserve_price": 250,
+    "image": "https://picsum.photos/seed/item10/400/300",
+    "buy_now_price": 330,
+    "condition": "Like New",
+    "shipping_price": 5,
+    "view_count": 0,
+    "seller_username": "TechGuru88",
+    "end_date_days_from_now": 4,
+    "current_bid": 200
+  },
+  {
+    "title": "Leather Sofa 3-Seater",
+    "description": "Comfortable 3-seater leather sofa in good condition.",
+    "category": "Furniture",
+    "location": "Hamilton",
+    "colour": "Brown",
+    "start_price": 90,
+    "reserve_price": 150,
+    "image": "https://picsum.photos/seed/item11/400/300",
+    "buy_now_price": 250,
+    "condition": "Used",
+    "shipping_price": 0,
+    "view_count": 0,
+    "seller_username": "HomeDecorPro",
+    "end_date_days_from_now": 9
+  },
+  {
+    "title": "Nikon 35mm f/1.8 Lens",
+    "description": "Prime lens in great condition. Sharp and lightweight.",
+    "category": "Photography",
+    "location": "Auckland",
+    "colour": "Black",
+    "start_price": 120,
+    "reserve_price": 150,
+    "image": "https://picsum.photos/seed/item12/400/300",
+    "buy_now_price": 220,
+    "condition": "Used",
+    "shipping_price": 5,
+    "view_count": 0,
+    "seller_username": "GadgetSeller",
+    "end_date_days_from_now": 6
+  },
+  {
+    "title": "Apple Watch Series 7 GPS 45mm",
+    "description": "Apple Watch Series 7 in excellent working condition.",
+    "category": "Electronics",
+    "location": "Auckland",
+    "colour": "Green",
+    "start_price": 150,
+    "reserve_price": 220,
+    "image": "https://picsum.photos/seed/item13/400/300",
+    "buy_now_price": 320,
+    "condition": "Like New",
+    "shipping_price": 5,
+    "view_count": 0,
+    "seller_username": "Phil202",
+    "end_date_days_from_now": 3,
+    "current_bid": 175
+  },
+  {
+    "title": "Microwave Oven 25L",
+    "description": "Good working condition, 800W microwave oven.",
+    "category": "Appliances",
+    "location": "Wellington",
+    "colour": "White",
+    "start_price": 20,
+    "reserve_price": 40,
+    "image": "https://picsum.photos/seed/item14/400/300",
+    "buy_now_price": 80,
+    "condition": "Used",
+    "shipping_price": 10,
+    "view_count": 0,
+    "seller_username": "Phil202",
+    "end_date_days_from_now": 8
+  },
+  {
+    "title": "Camping Tent 4-Person",
+    "description": "Spacious 4-person camping tent, waterproof & lightweight.",
+    "category": "Outdoors",
+    "location": "Tauranga",
+    "colour": "Green",
+    "start_price": 40,
+    "reserve_price": 80,
+    "image": "https://picsum.photos/seed/item15/400/300",
+    "buy_now_price": 120,
+    "condition": "Used",
+    "shipping_price": 15,
+    "view_count": 0,
+    "seller_username": "BikeEnthusiast",
+    "end_date_days_from_now": 12
   }
 ]
