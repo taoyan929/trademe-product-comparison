@@ -5,6 +5,7 @@ export default function MobileFilterModal({
   setFilters,
   onClose,
   clearFilters,
+  maxPriceLimit,
 
   // ★ Added: callback fired when user clicks "Apply Filters"
   onApply,
@@ -101,22 +102,30 @@ export default function MobileFilterModal({
 
           <hr />
 
-          {/* PRICE RANGE */}
-          <h3 className="mfp-section-title">
-            Price <span className="mfp-price-value">${filters.minPrice || 0}</span>
-          </h3>
+            {/* PRICE RANGE */}
+            <h3 className="mfp-section-title">
+              Price{" "}
+              <span className="mfp-price-value">
+                {filters.maxPrice
+                  ? `Up to $${filters.maxPrice}`
+                  : "Any price"}
+              </span>
+            </h3>
 
-          {/* Slider for price */}
-          <input
-            type="range"
-            min="0"
-            max="500"
-            value={filters.minPrice || 0}
-            className="mfp-price-slider"
-            onChange={(e) =>
-              setFilters({ ...filters, minPrice: Number(e.target.value) })
-            }
-          />
+            <input
+              type="range"
+              min="0"
+              max={maxPriceLimit}
+              value={filters.maxPrice || maxPriceLimit}   
+              className="mfp-price-slider"
+              onChange={(e) =>
+                setFilters({
+                  ...filters,
+                  minPrice: 0,                 
+                  maxPrice: Number(e.target.value),
+                })
+              }
+            />
 
           <hr />
 

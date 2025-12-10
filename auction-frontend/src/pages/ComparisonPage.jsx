@@ -48,6 +48,11 @@ export default function ComparisonPage() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
+    /* -----------------------------
+     DESKTOP FILTER MODAL
+  ------------------------------*/
+  const [showDesktopFilter, setShowDesktopFilter] = useState(false);
+
   // Reset filters
   const clearAllFilters = () => {
     setFilters(defaultFilters);
@@ -61,7 +66,24 @@ export default function ComparisonPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+/* -----------------------------
+   DYNAMIC MAX PRICE LIMIT
+------------------------------*/
+const maxPriceInData = useMemo(() => {
+  if (!items || items.length === 0) return 500; // default fallback
 
+  return Math.max(
+    ...items.map((item) => {
+      
+      return (
+        Number(item.buy_now_price) ||
+        Number(item.start_price) ||
+        Number(item.reserve_price) ||
+        0
+      );
+    })
+  );
+}, [items]);
   /* -----------------------------
      MOBILE FILTER MODAL
   ------------------------------*/
@@ -144,9 +166,7 @@ export default function ComparisonPage() {
                 if (isMobile) {
                   setShowMobileFilter(true);
                 } else {
-                  document.querySelector(".dfp-left")?.scrollIntoView({
-                    behavior: "smooth",
-                  });
+                  setShowDesktopFilter(!showDesktopFilter);
                 }
               }}
             >
@@ -233,7 +253,7 @@ export default function ComparisonPage() {
 
 
         {/* Desktop Filter Panel */}
-        {!isMobile && (
+        {!isMobile && showDesktopFilter && (
           <div className="dfp-wrapper">
             <DesktopFilterPanel
               filters={filters}
@@ -241,34 +261,34 @@ export default function ComparisonPage() {
               selectedProduct={items[0]}
               matchedProducts={items.slice(1)}
               clearFilters={clearAllFilters}
+              maxPriceLimit={maxPriceInData}
             />
           </div>
         )}
 
         {/* Product List */}
-        <div className="comparison-list">
-          {loading && <p>Loading...</p>}
+        {(!showDesktopFilter || isMobile) && (
+          <div className="comparison-list">
+            {loading && <p>Loading...</p>}
 
-          {!loading &&
-            items.filter(Boolean).map((item, index) => (
-              <React.Fragment key={item._id}>
-                <ComparisonItem
-                  product={item}
-                  onRemove={() => handleRemove(item._id)}
-                />
+            {!loading &&
+              items.filter(Boolean).map((item, index) => (
+                <React.Fragment key={item._id}>
+                  <ComparisonItem
+                    product={item}
+                    onRemove={() => handleRemove(item._id)}
+                  />
 
-                {/* Mobile alert after Apply */}
-                {isMobile &&
-                  mobileApplied &&
-                  index === 0 &&
-                  items.length > 1 && (
+                  {/* Mobile alert after Apply */}
+                  {isMobile && mobileApplied && index === 0 && items.length > 1 && (
                     <div className="dfp-alert" style={{ marginTop: "10px" }}>
                       These are other products we found that matched what you are looking for!
                     </div>
                   )}
-              </React.Fragment>
-            ))}
-        </div>
+                </React.Fragment>
+              ))}
+          </div>
+        )}
 
         {/* Mobile Filter Modal */}
         {isMobile && showMobileFilter && (
@@ -277,6 +297,7 @@ export default function ComparisonPage() {
             setFilters={setFilters}
             clearFilters={clearAllFilters}
             onClose={() => setShowMobileFilter(false)}
+            maxPriceLimit={maxPriceInData}
 
             // ★ The key link: when mobile user clicks Apply Filters
             onApply={() => {

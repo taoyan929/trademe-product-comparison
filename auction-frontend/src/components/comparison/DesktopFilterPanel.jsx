@@ -9,6 +9,8 @@ export default function DesktopFilterPanel({
   clearFilters,
   isMobile = false,
   closeModal,
+  maxPriceLimit,
+
 }) {
   // ---- Toggle Location ----
   const toggleLocation = (loc) => {
@@ -147,18 +149,29 @@ export default function DesktopFilterPanel({
 
         {/* PRICE RANGE */}
         <div className="dfp-section">
-          <h4>Price <span className="dfp-price-value">${filters.minPrice || 0}</span>
-          </h4>
-          <input
-            type="range"
-            min="0"
-            max="500"
-            value={filters.minPrice || 0}
-            onChange={(e) =>
-              setFilters({ ...filters, minPrice: e.target.value })
-            }
-          />
-        </div>
+        <h4>
+          Price{" "}
+          <span className="dfp-price-value">
+            {filters.maxPrice
+              ? `Up to $${filters.maxPrice}`
+              : "Any price"}
+          </span>
+        </h4>
+
+        <input
+          type="range"
+          min="0"
+          max={maxPriceLimit}
+          value={filters.maxPrice || maxPriceLimit}   
+          onChange={(e) =>
+            setFilters({
+              ...filters,
+              minPrice: 0,                  
+              maxPrice: Number(e.target.value),
+            })
+          }
+        />
+      </div>
 
         <div className="dfp-divider"></div>
 
