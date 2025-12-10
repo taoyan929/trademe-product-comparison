@@ -625,3 +625,142 @@
     font-size: 24px;
   }
 }
+
+/* Bid History Modal - Consistent with BidModal styling */
+.bid-history-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.bid-history-modal {
+  background: #ffffff;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.bid-history-modal .modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  color: #65605D;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bid-history-modal .modal-close:hover {
+  color: #44413D;
+}
+
+.bid-history-header-section {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.bid-history-modal h2 {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #44413D;
+}
+
+.bid-history-subtitle {
+  color: #65605D;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin: 4px 0 0 0;
+}
+
+.bid-history-content {
+  padding: 24px;
+}
+
+.bid-history-loading,
+.bid-history-empty {
+  text-align: center;
+  color: #65605D;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 24px 0;
+}
+
+.bid-history-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.bid-history-list-header {
+  display: grid;
+  grid-template-columns: 1fr 100px 120px;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 2px solid #D9D9D9;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  color: #65605D;
+  font-size: 14px;
+}
+
+.bid-history-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 120px;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #E5E5E5;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #65605D;
+}
+
+.bid-history-row.winning {
+  background: #DDF4FF;
+  margin: 0 -24px;
+  padding: 12px 24px;
+}
+
+.bidder-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.winning-badge {
+  background: #007ACD;
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.bid-amount {
+  font-weight: 600;
+  color: #44413D;
+}
+
+.bid-time {
+  color: #76716D;
+  font-size: 13px;
+}
