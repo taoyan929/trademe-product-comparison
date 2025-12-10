@@ -1,97 +1,51 @@
-
 /**
- * WatchlistPage Component
- * 
- * WHAT THIS PAGE DOES:
- * Displays all items that the user has added to their watchlist.
- * Users can remove items from the watchlist.
- * 
- * API INTEGRATION:
- * - Fetches watchlist data from MongoDB via backend API
- * - Updates display when items are added/removed
- * - real-time state management
+ * WatchlistPage - Trade Me Design
+ 
  */
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ProductCard from '../components/shared/ProductCard';
-import Button from '../components/shared/Button';
+import { useNavigate, Link } from 'react-router-dom';
 import './WatchlistPage.css';
 
 export default function WatchlistPage() {
   const navigate = useNavigate();
-  
-  // STATE MANAGEMENT
   const [watchlistItems, setWatchlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  // MOCK USER ID for now
+
   const userId = '692f8df9790ef72851af2312';
 
-  /**
-   * useEffect - Fetch watchlist when page loads
-   * 
-   * 1. Page loads → useEffect runs
-   * 2. fetchWatchlist() calls backend API
-   * 3. Backend queries MongoDB for this user's watchlist
-   * 4. Backend returns watchlist items with full auction data
-   * 5. Frontend updates state → React re-renders with items
-   */
   useEffect(() => {
     fetchWatchlist();
   }, []);
 
-  /**
-   * fetchWatchlist - THE MAIN API FUNCTION
-   * 
-   *    * 1. Makes GET request to /api/watchlist/user/:userId
-   * 2. Backend uses .populate() to include full auction details
-   * 3. Receives array of watchlist items
-   * 4. Each item has: { user_id, auction_id: {full auction data}, added_date }
-   * 5. Updates React state → Display updates automatically
-   */
   const fetchWatchlist = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // API CALL - Request user's watchlist from backend
       const response = await fetch(`http://localhost:3000/api/watchlist/user/${userId}`);
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error('Failed to fetch watchlist');
       }
 
-      const result = await response.json();
-      console.log('Watchlist response:', result);
-
-      // UPDATE STATE - Store watchlist items
-      if (result.success && result.data) {
-        setWatchlistItems(result.data);
-      } else {
-        throw new Error(result.error || 'Failed to fetch watchlist');
+      const data = await response.json();
+      
+      if (data.success) {
+        const items = data.data.map(item => item.auction_id);
+        setWatchlistItems(items);
       }
     } catch (err) {
-      console.error('Error fetching watchlist:', err);
       setError(err.message);
+      console.error('Error fetching watchlist:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  /**
-   * handleRemoveFromWatchlist - Remove item from watchlist
-   * 
-   * WHEN USER CLICKS REMOVE:
-   * 1. Makes DELETE request to backend
-   * 2. Backend removes item from MongoDB
-   * 3. Refreshes the watchlist display
-   * 4. User sees item disappear from page
-   */
   const handleRemoveFromWatchlist = async (auctionId) => {
     try {
-      // API CALL - Request to remove item
       const response = await fetch('http://localhost:3000/api/watchlist', {
         method: 'DELETE',
         headers: {
@@ -103,47 +57,52 @@ export default function WatchlistPage() {
         })
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to remove from watchlist');
+        throw new Error('Failed to remove from watchlist');
       }
 
-      // SUCCESS - Refresh the watchlist to show updated list
+      setWatchlistItems(prev => prev.filter(item => item._id !== auctionId));
+      
       console.log('Removed from watchlist:', auctionId);
-      fetchWatchlist();
     } catch (err) {
       console.error('Error removing from watchlist:', err);
-      alert('Failed to remove item from watchlist. Please try again.');
+      alert('Failed to remove item from watchlist');
     }
   };
 
-  /**
-   * handleProductClick - Navigate to product detail page
-   */
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
   };
 
-  /**
-   * handleClearAll - Remove all items from watchlist
-   */
-  const handleClearAll = async () => {
-    if (!window.confirm('Are you sure you want to clear your entire watchlist?')) {
-      return;
-    }
+  //  function to calculate time remaining
+  const getTimeRemaining = (endDate) => {
+    const now = new Date();
+    const end = new Date(endDate);
+    const diff = end - now;
 
-    try {
-      // Remove each item one by one
-      for (const item of watchlistItems) {
-        await handleRemoveFromWatchlist(item.auction_id._id);
-      }
-    } catch (err) {
-      console.error('Error clearing watchlist:', err);
+    if (diff <= 0) return 'Closed';
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (days > 0) {
+      const time = new Date(end);
+      const ampm = time.getHours() >= 12 ? 'PM' : 'AM';
+      const hour = time.getHours() % 12 || 12;
+      const min = time.getMinutes().toString().padStart(2, '0');
+      const dayName = time.toLocaleDateString('en-US', { weekday: 'short' });
+      const day = time.getDate();
+      const month = time.toLocaleDateString('en-US', { month: 'short' });
+      
+      return `${hour}:${min}${ampm}, ${dayName}, ${day}, ${month}`;
+    } else if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    } else {
+      return `${minutes}m`;
     }
   };
 
-  // LOADING STATE
   if (loading) {
     return (
       <main className="watchlist-page">
@@ -156,120 +115,168 @@ export default function WatchlistPage() {
     );
   }
 
-  // ERROR STATE
   if (error) {
     return (
       <main className="watchlist-page">
         <div className="container">
           <div className="watchlist-page__error">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="24" r="20" stroke="#E34647" strokeWidth="2"/>
-              <path d="M24 14v12M24 30v2" stroke="#E34647" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-            <h3>Error Loading Watchlist</h3>
+            <h2>Error Loading Watchlist</h2>
             <p>{error}</p>
-            <Button variant="primary" onClick={fetchWatchlist}>
-              Try Again
-            </Button>
+            <button onClick={fetchWatchlist}>Try Again</button>
           </div>
         </div>
       </main>
     );
   }
 
-  // EMPTY STATE
-  if (watchlistItems.length === 0) {
-    return (
-      <main className="watchlist-page">
-        <div className="container">
-          <div className="watchlist-page__header">
-            <h1 className="watchlist-page__title">My Watchlist</h1>
-            <p className="watchlist-page__subtitle">
-              Keep track of items you're interested in
-            </p>
-          </div>
-
-          <div className="watchlist-page__empty">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-              <path d="M32 8C18.7 8 8 18.7 8 32s10.7 24 24 24 24-10.7 24-24S45.3 8 32 8zm0 44c-11 0-20-9-20-20s9-20 20-20 20 9 20 20-9 20-20 20z" fill="#D9D9D9"/>
-              <path d="M32 20v12l8 8" stroke="#D9D9D9" strokeWidth="3" strokeLinecap="round"/>
-            </svg>
-            <h3>Your watchlist is empty</h3>
-            <p>Start adding items to keep track of auctions you're interested in</p>
-            <Button 
-              variant="primary" 
-              size="large"
-              onClick={() => navigate('/marketplace')}
-            >
-              Browse Marketplace
-            </Button>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  // WATCHLIST WITH ITEMS
   return (
     <main className="watchlist-page">
       <div className="container">
-        {/* Header */}
+        {/* Breadcrumbs  */}
+        <nav className="watchlist-breadcrumbs">
+          <Link to="/">Home</Link>
+          <span> / </span>
+          <Link to="/my-trade-me">My TradeMe</Link>
+          <span> / </span>
+          <span>Watchlist</span>
+        </nav>
+
+        {/* Header with Title and Edit Button */}
         <div className="watchlist-page__header">
-          <div>
-            <h1 className="watchlist-page__title">My Watchlist</h1>
-            <p className="watchlist-page__subtitle">
-              {watchlistItems.length} {watchlistItems.length === 1 ? 'item' : 'items'} saved
-            </p>
-          </div>
-          {watchlistItems.length > 0 && (
-            <Button 
-              variant="secondary" 
-              onClick={handleClearAll}
-            >
-              Clear All
-            </Button>
-          )}
+          <h1 className="watchlist-page__title">
+            Watched Auctions ({watchlistItems.length})
+          </h1>
+          <button className="watchlist-page__edit-btn">Edit</button>
         </div>
 
-        {/* Product Grid */}
-        <div className="watchlist-page__grid">
-          {watchlistItems.map((item) => {
-            // item.auction_id contains the full auction object (.populate())
-            const product = item.auction_id;
-            
-            return (
-              <div
-                key={item._id}
-                className="watchlist-page__item"
-              >
-                <div onClick={() => handleProductClick(product._id)}>
-                  <ProductCard
-                    product={product}
-                    showBookmark={true}
-                    onBookmarkClick={() => handleRemoveFromWatchlist(product._id)}
-                  />
-                </div>
-                
-                {/* Additional watchlist info */}
-                <div className="watchlist-item-info">
-                  <p className="watchlist-added-date">
-                    Added {new Date(item.added_date).toLocaleDateString('en-NZ', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric'
-                    })}
-                  </p>
+        {/* Empty State */}
+        {watchlistItems.length === 0 ? (
+          <div className="watchlist-page__empty">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="30" stroke="#D9D9D9" strokeWidth="2"/>
+              <path d="M32 20v24M20 32h24" stroke="#D9D9D9" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            <h2>Your watchlist is empty</h2>
+            <p>Start adding items you're interested in!</p>
+            <button 
+              className="btn-primary"
+              onClick={() => navigate('/marketplace')}
+            >
+              Browse Marketplace
+            </button>
+          </div>
+        ) : (
+          // Watchlist Items List
+          <div className="watchlist-page__list">
+            {watchlistItems.map((product) => {
+              const imageUrl = product.images && product.images.length > 0 
+                ? product.images[0] 
+                : product.image;
+
+              return (
+                <div
+                  key={product._id}
+                  className="watchlist-item"
+                >
+                  {/* Yellow  Bookmark */}
                   <button
-                    className="watchlist-remove-btn"
-                    onClick={() => handleRemoveFromWatchlist(product._id)}
+                    className="watchlist-item__bookmark"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveFromWatchlist(product._id);
+                    }}
+                    aria-label="Remove from watchlist"
                   >
-                    Remove
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="64" height="64" fill="#F6F5F4"/>
+                      <path d="M0 0L32 34.2857L64 64H8C3.58172 64 0 60.4183 0 56V0Z" fill="#F9AF2C"/>
+                      <path d="M25.9785 40.3486L17.3383 49.1074L14.0316 45.7479C13.8084 45.522 13.5057 45.395 13.1901 45.395C12.8744 45.395 12.5717 45.522 12.3486 45.7479C12.1254 45.9738 12 46.2803 12 46.5998C12 46.9193 12.1254 47.2257 12.3486 47.4517L16.4968 51.6511C16.7189 51.8746 17.0193 52 17.3324 52C17.6455 52 17.9459 51.8746 18.168 51.6511L27.6497 42.0524C27.8729 41.8281 27.9989 41.5231 28 41.2048C28.0011 40.8864 27.8772 40.5806 27.6556 40.3546C27.434 40.1287 27.1328 40.0011 26.8183 40C26.5038 39.9989 26.2017 40.1243 25.9785 40.3486Z" fill="#943900"/>
+                    </svg>
                   </button>
+
+                  {/* Image */}
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt={product.title}
+                      className="watchlist-item__image"
+                      onClick={() => handleProductClick(product._id)}
+                    />
+                  ) : (
+                    <div className="watchlist-item__image-placeholder">
+                      No Image
+                    </div>
+                  )}
+
+                  {/* Content */}
+                  <div 
+                    className="watchlist-item__content"
+                    onClick={() => handleProductClick(product._id)}
+                  >
+                    {/* Location and Closing Time */}
+                    <div className="watchlist-item__location-time">
+                      <div className="watchlist-item__location">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="#65605d">
+                          <circle cx="6" cy="6" r="2" />
+                        </svg>
+                        {product.location}
+                      </div>
+                      <div className="watchlist-item__closes">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="#65605d">
+                          <circle cx="6" cy="6" r="5" stroke="#65605d" strokeWidth="1" fill="none"/>
+                          <path d="M6 3v3l2 2" stroke="#65605d" strokeWidth="1" fill="none"/>
+                        </svg>
+                        Closes: {getTimeRemaining(product.end_date || product.closing_time)}
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="watchlist-item__title">
+                      {product.title}
+                    </h3>
+
+                    {/* Pricing */}
+                    <div className="watchlist-item__pricing">
+                      <div className="watchlist-item__price-group">
+                        <div className="watchlist-item__price-label">
+                          {product.reserve_met ? 'Reserve met' : 'Reserve not met'}
+                        </div>
+                        <div className="watchlist-item__price-amount">
+                          ${(product.reserve_price ?? product.start_price ?? 0).toFixed(2)}
+                        </div>
+                      </div>
+
+                      {product.buy_now_price > 0 && (
+                        <div className="watchlist-item__price-group">
+                          <div className="watchlist-item__price-label">Buy now</div>
+                          <div className="watchlist-item__price-amount">
+                            ${product.buy_now_price.toFixed(2)}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="watchlist-item__actions">
+                    <button 
+                      className="watchlist-item__action-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleProductClick(product._id);
+                      }}
+                    >
+                      Place bid
+                    </button>
+                    <button className="watchlist-item__action-btn">
+                      Add note
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </main>
   );

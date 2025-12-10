@@ -8,7 +8,7 @@
  * - ComparisonPage: Dev 3 (Compare multiple items)
  */
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/shared/Navbar'
 import HomePage from './pages/HomePage'
 import ProductDetailPage from './pages/ProductDetailPage'
@@ -18,7 +18,8 @@ import WatchlistPage from './pages/WatchlistPage'
 import Footer from './components/shared/Footer'
 function App() {
   return (
-    <Router>
+
+    <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -29,8 +30,10 @@ function App() {
         <Route path="/comparison" element={<ComparisonPage />} />
 
       </Routes>
+
       <Footer/>
-    </Router>
+      
+    </BrowserRouter>
   )
 }
 

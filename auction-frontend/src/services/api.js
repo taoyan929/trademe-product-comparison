@@ -5,8 +5,12 @@
  * All API calls should go through this service.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+// Detect API Base URL (Vite env OR fallback to localhost)git
 
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+
+// Debug log for development
+console.log(">>> api.js LOADED, BASE URL =", API_BASE_URL);
 /**
  * Generic fetch wrapper with error handling
  */

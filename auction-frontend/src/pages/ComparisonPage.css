@@ -1,0 +1,195 @@
+/* ===========================
+   Page Layout
+=========================== */
+
+.comparison-container {
+  background: #f8f8f8;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.comparison-page {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 40px;
+}
+
+/* ===========================
+   Breadcrumb
+=========================== */
+.breadcrumb {
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.breadcrumb a {
+  color: #0077cc;
+}
+.breadcrumb .current {
+  color: #666;
+}
+
+/* ===========================
+   Title + Filter button
+=========================== */
+.comparison-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.comparison-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.filter-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filter-btn-desktop.main-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: #2c82d9;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.filter-btn-desktop .filter-icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.filter-btn-desktop .filter-text {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* ===========================
+   Search Bar + Chips
+=========================== */
+
+.cmp-search-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.cmp-search-input {
+  flex: 1;
+  display: flex;
+  align-items: center;        /* Chips + Input 垂直居中 */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 40px;
+  padding: 8px 14px;
+  height: 48px;
+  position: relative;
+  gap: 10px;
+}
+
+/* Search icon */
+.cmp-search-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+}
+
+/* Input */
+.cmp-search-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  min-width: 140px;
+}
+
+/* Chips container INSIDE search bar */
+.cmp-chip-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Individual chip */
+.cmp-chip {
+  background: #e8f4ff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #0066cc;
+  display: flex;
+  align-items: center;
+  border: 1px solid #c8e1ff;
+}
+
+.cmp-chip-remove {
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+
+/* Search / Clear button */
+.cmp-search-btn {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 6px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.cmp-search-btn:hover {
+  background: #e9e9e9;
+}
+
+/* ===========================
+   NOTE BOX
+=========================== */
+.comparison-note {
+  background: #f7e2bc;
+  border-left: 6px solid #e0b46c;
+  padding: 12px 16px;
+  margin: 20px 0;
+  border-radius: 3px;
+  color: #444;
+}
+
+/* ===========================
+   Product list
+=========================== */
+.comparison-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===========================
+   Mobile
+=========================== */
+@media (max-width: 768px) {
+  .cmp-search-wrapper {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .cmp-chip-container {
+    justify-content: flex-start;
+  }
+
+  .filter-button-wrapper {
+    width: 100%;
+  }
+}

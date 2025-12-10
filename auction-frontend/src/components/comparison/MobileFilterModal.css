@@ -1,0 +1,181 @@
+/* --- Overlay background --- */
+.mfm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* --- Bottom slide-up panel --- */
+.mfm-modal {
+  width: 100%;
+  max-height: 85%;
+  background: #ffffff;
+  border-radius: 16px 16px 0 0;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: slideUp 0.25s ease-out;
+}
+
+/* Slide animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- Header --- */
+.mfm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.mfm-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.mfm-close-btn {
+  border: none;
+  background: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #444;
+}
+
+/* --- Content sections --- */
+.mfm-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.mfm-section {
+  margin-bottom: 18px;
+}
+
+.mfm-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Divider lines */
+.mfm-content hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 12px 0;
+}
+
+/* --- Sort Buttons --- */
+.mfm-sort-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mfm-sort-btn {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mfm-sort-btn.active {
+  background: #f4b400;
+  color: white;
+  border-color: #f4b400;
+}
+
+/* --- Checkbox Grid --- */
+.mfm-checkbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.mfm-checkbox-item {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.mfm-checkbox-item input {
+  margin-right: 6px;
+}
+
+/* --- Price Inputs --- */
+
+.mfm-price-row input {
+  width: 50%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* --- Clear Filters --- */
+.mfm-clear-row {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.mfm-clear-btn {
+  border: none;
+  background: none;
+  color: #0077cc;
+  text-decoration: underline;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* --- Footer apply button --- */
+.mfm-footer {
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.mfm-apply-btn {
+  width: 100%;
+  background: #0077cc;
+  color: white;
+  padding: 12px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Price title + value */
+.mfp-price-value {
+  font-weight: 600;
+  margin-left: 6px;
+  color: #333;
+}
+
+/* Slider styling */
+.mfp-price-slider {
+  width: 100%;
+  margin: 10px 0 20px;
+  accent-color: #2c82d9; /* TradeMe blue */
+  height: 6px;
+}

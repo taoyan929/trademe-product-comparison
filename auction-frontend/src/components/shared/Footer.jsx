@@ -2,7 +2,7 @@
  * Footer Component
  *
  * Main footer with multi-column navigation and copyright info.
- * Based on Trade Me design - DO NOT modify without team discussion.
+ * - DO NOT modify without team discussion.
  */
 
 import { Link } from 'react-router-dom';

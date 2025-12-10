@@ -3,12 +3,15 @@
  * Modal for placing bids on auctions with auto-bid support
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { API_BASE_URL } from '../../services/api'
 import './BidModal.css'
 
 export default function BidModal({
   isOpen,
   onClose,
+  onBidSuccess,
+  userId,
   product,
   currentBid,
   timeRemaining
@@ -21,10 +24,36 @@ export default function BidModal({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
+  // Fetch user's existing bid when modal opens
+  useEffect(() => {
+    if (!isOpen || !userId || !product?._id) return
+
+    const fetchExistingBid = async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/bids/user/${userId}/auction/${product._id}`
+        )
+        const result = await response.json()
+        if (result.success && result.data) {
+          // Pre-populate auto-bid settings if they exist
+          if (result.data.is_auto_bid && result.data.max_auto_bid) {
+            setIsAutoBid(true)
+            setMaxAutoBid(String(Math.floor(result.data.max_auto_bid)))
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching existing bid:', err)
+      }
+    }
+
+    fetchExistingBid()
+  }, [isOpen, userId, product?._id])
+
   if (!isOpen) return null
 
-  const minBid = currentBid > 0 ? currentBid + 1 : product.start_price
-  const suggestedBid = Math.ceil(minBid)
+  // Round up to next whole dollar for minimum bid (must exceed current bid or start price)
+  const minBid = currentBid > 0 ? Math.ceil(currentBid) + 1 : Math.ceil(product.start_price) + 1
+  const suggestedBid = minBid
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -32,10 +61,10 @@ export default function BidModal({
     setIsSubmitting(true)
 
     try {
-      // Validate bid amount
-      const amount = parseFloat(bidAmount)
+      // Validate bid amount - must be whole number
+      const amount = Math.floor(parseFloat(bidAmount))
       if (isNaN(amount) || amount < minBid) {
-        setError(`Bid must be at least $${minBid.toFixed(2)}`)
+        setError(`Bid must be at least $${minBid}`)
         setIsSubmitting(false)
         return
       }
@@ -57,10 +86,7 @@ export default function BidModal({
         return
       }
 
-      // TODO: Get actual user ID from authentication context
-      const userId = '692f8df9790ef72851af2312' // Placeholder
-
-      const response = await fetch('http://localhost:3000/api/bids', {
+      const response = await fetch(`${API_BASE_URL}/bids`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,6 +117,10 @@ export default function BidModal({
   }
 
   const handleClose = () => {
+    // If bid was successful, notify parent to refresh data
+    if (showSuccess && onBidSuccess) {
+      onBidSuccess()
+    }
     // Reset form
     setBidAmount('')
     setIsAutoBid(false)
@@ -103,8 +133,6 @@ export default function BidModal({
 
   const handleBackToListing = () => {
     handleClose()
-    // Optionally refresh the page to show updated bid
-    window.location.reload()
   }
 
   // Success state
@@ -196,24 +224,27 @@ export default function BidModal({
               <label htmlFor="bidAmount">Enter your bid</label>
               <a href="#" className="help-link">Bidding help</a>
             </div>
-            <input
-              id="bidAmount"
-              type="number"
-              step="0.01"
-              min={minBid}
-              value={bidAmount}
-              onChange={(e) => setBidAmount(e.target.value)}
-              placeholder={`$${suggestedBid.toFixed(2)}`}
-              className="bid-input"
-              required
-            />
+            <div className="bid-input-wrapper">
+              <span className="bid-currency">$</span>
+              <input
+                id="bidAmount"
+                type="number"
+                step="1"
+                min={minBid}
+                value={bidAmount}
+                onChange={(e) => setBidAmount(e.target.value.split('.')[0])}
+                placeholder={String(suggestedBid)}
+                className="bid-input"
+                required
+              />
+            </div>
           </div>
 
           <div className="auto-bid-section">
             <div className="auto-bid-toggle">
               <label htmlFor="autoBid">
                 Set auto bid
-                <span className="info-icon">i</span>
+                <span className="info-icon">?</span>
               </label>
               <input
                 id="autoBid"
@@ -226,16 +257,19 @@ export default function BidModal({
 
             {isAutoBid && (
               <div className="auto-bid-input">
-                <input
-                  type="number"
-                  step="0.01"
-                  min={bidAmount}
-                  value={maxAutoBid}
-                  onChange={(e) => setMaxAutoBid(e.target.value)}
-                  placeholder="Enter maximum auto-bid amount"
-                  className="bid-input"
-                  required={isAutoBid}
-                />
+                <div className="bid-input-wrapper">
+                  {maxAutoBid && <span className="bid-currency">$</span>}
+                  <input
+                    type="number"
+                    step="1"
+                    min={bidAmount}
+                    value={maxAutoBid}
+                    onChange={(e) => setMaxAutoBid(e.target.value.split('.')[0])}
+                    placeholder="Enter maximum auto-bid amount"
+                    className={`bid-input ${maxAutoBid ? '' : 'no-currency'}`}
+                    required={isAutoBid}
+                  />
+                </div>
                 <p className="auto-bid-help">
                   We'll bid up to this amount automatically when outbid
                 </p>

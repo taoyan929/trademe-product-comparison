@@ -5,7 +5,7 @@
  * This is the main browsing page where users can search and filter auctions.
  * It has a search bar, filter panel, and displays all matching products.
  * 
- * API INTEGRATION - HOW IT MEETS PHASE 2 REQUIREMENTS:
+ * API INTEGRATION 
  * 1. Fetches ALL auctions from MongoDB when page loads
  * 2. Stores them in React state
  * 3. When user searches or filters, updates the display in real-time
@@ -118,15 +118,7 @@ useEffect(() => {
   fetchAuctions();
 }, [searchQuery, filters]);
 
- /**
-   * applyFiltersAndSearch 
-   * HOW IT UPDATES DISPLAY:
-   * 1. Takes the full auctions array
-   * 2. Applies each active filter
-   * 3. Calls setFilteredAuctions() with results
-   * 4. React re-renders ProductGrid with filtered data
-   * 5. User sees updated results instantly!
-   */
+ 
     const applyFiltersAndSearch = () => {
       // starts will all auctions
     let results = [...auctions];

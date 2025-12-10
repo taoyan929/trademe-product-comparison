@@ -1,0 +1,174 @@
+/* =============================== */
+/* Comparison Item Container */
+/* =============================== */
+.cmp-item {
+  display: flex;
+  align-items: flex-start;
+  background: white;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  border-radius: 6px 60px 6px 6px;
+  border: 1px solid #e6e6e6;
+  position: relative;
+}
+
+
+/* =============================== */
+/*  Left Image Section 
+/* =============================== */
+.cmp-image-box {
+  width: 170px;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cmp-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* =============================== */
+/* Content Area */
+/* =============================== */
+.cmp-content {
+  flex: 1;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =============================== */
+/* 1️⃣ Top Row: Location + Closing Time + Remove */
+/* =============================== */
+.cmp-header-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 13px;
+  color: #777;
+  position: relative;
+}
+
+.cmp-location {
+  margin-right: 6px;
+}
+
+.cmp-dot {
+  width: 4px;
+  height: 4px;
+  background: #777;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 6px;
+}
+
+.cmp-closing {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Remove (X) button */
+.cmp-remove-btn {
+  margin-left: auto;
+  font-size: 16px;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 0;
+}
+.cmp-remove-btn:hover {
+  color: #666;
+}
+
+
+/* =============================== */
+/* Divider (horizontal lines) */
+/* =============================== */
+.cmp-divider {
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+  margin: 10px 0;
+}
+
+
+/* =============================== */
+/* 2️⃣ Title */
+/* =============================== */
+.cmp-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 4px 0 10px;
+}
+
+
+/* =============================== */
+/* 3️⃣ Reserve (left) + Buy now (right) */
+/* =============================== */
+.cmp-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.cmp-reserve-block {
+  display: flex;
+  flex-direction: column;
+}
+.cmp-reserve-label {
+  color: #777;
+  font-size: 14px;
+}
+.cmp-reserve-value {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.cmp-buy-block {
+  text-align: right;
+}
+.cmp-buy-label {
+  font-size: 13px;
+  color: #777;
+}
+.cmp-buy-value {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+
+/* =============================== */
+/* 4️⃣ Add note */
+/* =============================== */
+.cmp-add-note-btn {
+  margin-top: 4px;
+  border: none;
+  background: none;
+  color: #0077cc;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+.cmp-add-note-btn:hover {
+  text-decoration: underline;
+}
+
+
+/* =============================== */
+/* Yellow checkmark corner icon */
+/* =============================== */
+.cmp-corner-check {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52px;
+  height: 52px;
+  pointer-events: none;
+}
