@@ -4,6 +4,14 @@ const Auction = require('../models/Auction');
 
 const router = express.Router();
 
+// Helper function for consistent error responses
+const sendError = (res, statusCode, message) => {
+  return res.status(statusCode).json({
+    success: false,
+    error: message
+  });
+};
+
 // GET /api/bids/auction/:auctionId - Get all bids for an auction
 router.get('/auction/:auctionId', async (req, res) => {
   try {
@@ -17,10 +25,7 @@ router.get('/auction/:auctionId', async (req, res) => {
       data: bids
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
+    return sendError(res, 500, error.message);
   }
 });
 
@@ -42,10 +47,7 @@ router.get('/auction/:auctionId/highest', async (req, res) => {
       data: highestBid
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
+    return sendError(res, 500, error.message);
   }
 });
 
@@ -56,35 +58,23 @@ router.post('/', async (req, res) => {
 
     // Validate required fields
     if (!auction_id || !bidder_id || !amount) {
-      return res.status(400).json({
-        success: false,
-        error: 'auction_id, bidder_id, and amount are required'
-      });
+      return sendError(res, 400, 'auction_id, bidder_id, and amount are required');
     }
 
     // Get the auction
     const auction = await Auction.findById(auction_id);
     if (!auction) {
-      return res.status(404).json({
-        success: false,
-        error: 'Auction not found'
-      });
+      return sendError(res, 404, 'Auction not found');
     }
 
     // Check if auction is active
     if (auction.status !== 'active') {
-      return res.status(400).json({
-        success: false,
-        error: 'Auction is not active'
-      });
+      return sendError(res, 400, 'Auction is not active');
     }
 
     // Check if auction has ended
     if (new Date() > auction.end_date) {
-      return res.status(400).json({
-        success: false,
-        error: 'Auction has ended'
-      });
+      return sendError(res, 400, 'Auction has ended');
     }
 
     // Get current highest bid
@@ -93,10 +83,7 @@ router.post('/', async (req, res) => {
 
     // Validate bid amount
     if (amount <= minBidAmount) {
-      return res.status(400).json({
-        success: false,
-        error: `Bid must be higher than current bid of $${minBidAmount}`
-      });
+      return sendError(res, 400, `Bid must be higher than current bid of $${minBidAmount}`);
     }
 
     // Create the bid
@@ -135,10 +122,7 @@ router.post('/', async (req, res) => {
       data: bid
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
+    return sendError(res, 500, error.message);
   }
 });
 
@@ -155,10 +139,24 @@ router.get('/user/:userId', async (req, res) => {
       data: bids
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
+    return sendError(res, 500, error.message);
+  }
+});
+
+// GET /api/bids/user/:userId/auction/:auctionId - Get user's latest bid for a specific auction
+router.get('/user/:userId/auction/:auctionId', async (req, res) => {
+  try {
+    const bid = await Bid.findOne({
+      bidder_id: req.params.userId,
+      auction_id: req.params.auctionId
+    }).sort({ bid_time: -1 });
+
+    res.json({
+      success: true,
+      data: bid
     });
+  } catch (error) {
+    return sendError(res, 500, error.message);
   }
 });
 
