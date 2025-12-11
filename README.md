@@ -1,236 +1,119 @@
-# Mission 5 - Phase 2: Trade Me Marketplace
+# Trade Me Marketplace Redesign
 
-Team development project building a production-ready auction marketplace.
+A team-built auction marketplace implementing Trade Me's UX redesign, featuring real-time bidding, watchlists, AI-powered Q&A, and product comparison tools.
 
-## Phase 1 Foundation
+![Trade Me Marketplace](demo-screenshot.png)
 
-This project builds on Phase 1 individual work: https://github.com/Lona44/Mission-Ready-L5-Mission-5.git
+## Features
 
-**Phase 1 Deliverables:**
-- MongoDB schema with auction data (title, description, category, location, colour, pricing)
-- REST API with search functionality (27 passing tests)
-- CLI seeder tool (29 passing tests)
-- Basic React search interface
-- Full TDD evidence and documentation
+- **Browse Marketplace** - Search, filter, and explore auction listings
+- **Product Details** - Image gallery, seller info, shipping options, Q&A section
+- **Bidding System** - Place bids, auto-bid, view bid history, reserve tracking
+- **Watchlist** - Save and track items you're interested in
+- **Comparison Tool** - Compare multiple products side-by-side
+- **AI Q&A** - Automatic seller responses powered by Gemini/Ollama
+- **Mobile Responsive** - Works on all device sizes
 
-## Phase 2 Objectives
+## Quick Start
 
-Build complete Trade Me marketplace with UX team designs:
-- Home/Browse marketplace page with search and filters
-- Product detail page with bidding functionality
-- Comparison tool for comparing multiple items
-- Watchlist feature
-- Mobile responsive design
-- Production-ready code quality
+**Prerequisites:** Node.js 18+, MongoDB running locally
 
-## Team Structure
+```bash
+# Clone and install
+git clone https://github.com/Lona44/Mission-Ready-L5-Mission-5-Phase-2.git
+cd Mission-Ready-L5-Mission-5-Phase-2
 
-**Dev 1:** Home/Browse page + navigation system
-- Marketplace grid layout
-- Search and filter UI
-- Breadcrumb navigation
-- Category filtering
+# Backend
+cd auction-backend
+npm install
+cp .env.example .env    # Configure your environment
+npm run seed            # Seed the database
+npm run dev             # Starts on http://localhost:3000
 
-**Dev 2:** Product detail page
-- Single product view with image gallery
-- Product details and specifications
-- Seller information
-- Questions & Answers section
-- Bidding functionality (Phase 2)
+# Frontend (new terminal)
+cd auction-frontend
+npm install
+npm run dev             # Starts on http://localhost:5173
+```
 
-**Dev 3:** Comparison tool
-- Multi-product comparison view
-- Add/remove items from comparison
-- Filter products for comparison
+## Environment Setup
 
-**UX Team:** Design handoff, component validation, user testing
+Copy `auction-backend/.env.example` to `.env` and configure:
+
+```env
+# Required
+MONGODB_URI=mongodb://localhost:27017/trademe_auctions
+PORT=3000
+
+# Optional: AI Q&A (choose one)
+GEMINI_API_KEY=your_key_here    # Get from Google AI Studio
+# OR
+USE_OLLAMA=true                  # For local AI (requires Ollama)
+```
+
+> **Note:** The Q&A feature works without AI configured - it will use fallback responses.
 
 ## Tech Stack
 
-**Backend:**
-- Node.js + Express
-- MongoDB + Mongoose
-- Jest for testing
+| Backend | Frontend |
+|---------|----------|
+| Node.js + Express | React 18 + Vite |
+| MongoDB + Mongoose | CSS (Trade Me UI Kit) |
+| Jest + Supertest | |
 
-**Frontend:**
-- React 18
-- Vite
-- CSS (Trade Me UI Kit)
+## API Endpoints
 
-## Getting Started
-
-### Prerequisites
-- Node.js 18+
-- MongoDB running locally
-- Git
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/Lona44/Mission-Ready-L5-Mission-5-Phase-2.git
-cd Mission-Ready-L5-Mission-5-Phase-2
 ```
+GET    /api/auctions              # List auctions (search, filter, paginate)
+GET    /api/auctions/:id          # Single auction with seller info
 
-2. Install backend dependencies:
-```bash
-cd auction-backend
-npm install
-```
+POST   /api/bids                  # Place a bid
+GET    /api/bids/auction/:id      # Bid history for auction
 
-3. Install frontend dependencies:
-```bash
-cd auction-frontend
-npm install
-```
+GET    /api/watchlist/user/:id    # User's watchlist
+POST   /api/watchlist             # Add to watchlist
+DELETE /api/watchlist             # Remove from watchlist
 
-4. Seed the database:
-```bash
-cd auction-backend
-npm run seed
-```
-
-5. Run the backend (http://localhost:3000):
-```bash
-cd auction-backend
-npm run dev
-```
-
-6. Run the frontend (http://localhost:5173):
-```bash
-cd auction-frontend
-npm run dev
+GET    /api/questions/auction/:id # Q&A for auction
+POST   /api/questions             # Ask a question (AI auto-answers)
 ```
 
 ## Project Structure
 
 ```
-Mission 5 - Phase 2/
-├── auction-backend/          # Express REST API
+├── auction-backend/
 │   ├── src/
-│   │   ├── routes/          # API endpoints
-│   │   ├── models/          # MongoDB models
-│   │   └── middleware/      # Express middleware
-│   └── __tests__/           # Backend tests
-├── auction-frontend/         # React application
+│   │   ├── models/        # Auction, User, Bid, Question, Watchlist
+│   │   ├── routes/        # API endpoints
+│   │   └── services/      # AI service for Q&A
+│   └── data/              # Seed data (auctions.json, users.json)
+│
+├── auction-frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── shared/      # Shared components (ProductCard, Navbar, etc.)
-│   │   │   ├── home/        # Home page components (Dev 1)
-│   │   │   ├── product/     # Product detail components (Dev 2)
-│   │   │   └── comparison/  # Comparison tool components (Dev 3)
-│   │   ├── services/        # API client and utilities
-│   │   ├── styles/          # UI Kit theme and global styles
-│   │   └── pages/           # Page components
-│   └── public/              # Static assets
-└── docs/                     # Project documentation
-    ├── API.md               # API endpoint documentation
-    ├── COMPONENTS.md        # Component library guide
-    └── UI-KIT.md            # Design system reference
+│   │   │   ├── shared/    # Navbar, ProductCard, Icons, BidModal
+│   │   │   └── comparison/ # Filter panels, comparison items
+│   │   ├── pages/         # HomePage, ProductDetailPage, WatchlistPage, ComparisonPage
+│   │   └── services/      # API client
+│   └── public/            # Static assets, logos
 ```
 
-## Development Workflow
+## Team
 
-1. **Pull latest changes:**
-```bash
-git pull origin main
-```
+| Role | Name | GitHub | Focus Area |
+|------|------|--------|------------|
+| Dev 1 | Sana | [@Lotfan](https://github.com/Lotfan) | Homepage, Marketplace, Navigation |
+| Dev 2 | Ma'alona | [@Lona44](https://github.com/Lona44) | Product Detail, Bidding, Q&A |
+| Dev 3 | Tao | [@taoyan929](https://github.com/taoyan929) | Comparison Tool, Filters |
 
-2. **Create feature branch:**
-```bash
-git checkout -b feature/your-feature-name
-```
+## Phase 1 Foundation
 
-3. **Make changes and commit:**
-```bash
-git add .
-git commit -m "Description of changes"
-```
+This project builds on [Phase 1 individual work](https://github.com/Lona44/Mission-Ready-L5-Mission-5):
+- MongoDB schema with auction data
+- REST API with search (27 passing tests)
+- CLI seeder tool (29 passing tests)
+- TDD methodology
 
-4. **Push and create PR:**
-```bash
-git push origin feature/your-feature-name
-```
+---
 
-5. **Request review from team members**
-
-## Branch Strategy
-
-- `main` - Production-ready code (protected)
-- `develop` - Integration branch for testing
-- `feature/*` - Individual developer branches
-
-## Code Standards
-
-- ESLint and Prettier for consistent formatting
-- All API changes must include tests
-- Component props must be documented
-- Follow Trade Me UI Kit colors and typography
-- Mobile-first responsive design
-
-## API Endpoints
-
-**Base URL:** `http://localhost:3000/api`
-
-```
-GET    /auctions              # List all auctions (with search/filters)
-GET    /auctions/:id          # Get single auction
-POST   /auctions/:id/bid      # Place bid (Phase 2)
-GET    /categories            # Get category list for navigation
-```
-
-See `docs/API.md` for detailed documentation.
-
-## UI Kit Reference
-
-**Colors:**
-- Primary Blue: `#007acd` (buttons, links)
-- Heading: `#44413d` (titles, navbar)
-- Body Text: `#65605d`
-- Urgent Red: `#E34647` (countdown, errors)
-- Success Yellow: `#F9AF2C` (notifications)
-- Borders: `#D9D9D9`
-- Background: `#F5F5F5`
-
-**Typography:**
-- Font Stack: Story Sans, Helvetica Neue, Arial
-
-See `docs/UI-KIT.md` for full design system.
-
-## Shared Components
-
-Reusable components available for all developers. Discuss changes in Teams chat before modifying.
-
-- `<Navbar>` - Site navigation header
-- `<Footer>` - Site footer with links
-- `<Breadcrumbs>` - Navigation breadcrumb trail
-- `<ProductCard>` - Reusable product card (used across all pages)
-- `<Button>` - Styled button with variants
-- `<Badge>` - Status and notification badges
-
-See `docs/COMPONENTS.md` for usage examples.
-
-## Testing
-
-Run backend tests:
-```bash
-cd auction-backend
-npm test
-```
-
-Run frontend tests:
-```bash
-cd auction-frontend
-npm test
-```
-
-## Deployment
-
-TBD - Will be deployed to production environment after team development is complete.
-
-## Contact
-
-For questions or issues:
-- Post in **Teams chat: "Group 2.0 Mission 5"**
-- Create a GitHub issue
-- Tag relevant team members in PR comments
+*Built as part of Mission Ready Level 5 Tech Career Accelerator*
