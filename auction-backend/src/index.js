@@ -5,6 +5,9 @@ const { program } = require('commander');
 const { connectDB, disconnectDB } = require('./db');
 const Auction = require('./models/Auction');
 const User = require('./models/User');
+const Bid = require('./models/Bid');
+const Watchlist = require('./models/Watchlist');
+const Question = require('./models/Question');
 const auctionsData = require('../data/auctions.json');
 const usersData = require('../data/users.json');
 
@@ -91,7 +94,7 @@ program
 // Delete command
 program
   .command('delete')
-  .description('Delete all auction and user data from the database')
+  .description('Delete all data from the database (auctions, users, bids, watchlist, questions)')
   .option('-f, --force', 'Skip confirmation')
   .action(async (options) => {
     try {
@@ -99,7 +102,10 @@ program
 
       const auctionCount = await Auction.countDocuments();
       const userCount = await User.countDocuments();
-      const totalCount = auctionCount + userCount;
+      const bidCount = await Bid.countDocuments();
+      const watchlistCount = await Watchlist.countDocuments();
+      const questionCount = await Question.countDocuments();
+      const totalCount = auctionCount + userCount + bidCount + watchlistCount + questionCount;
 
       if (totalCount === 0) {
         console.log('Database is already empty.');
@@ -108,7 +114,12 @@ program
       }
 
       if (!options.force) {
-        console.log(`About to delete ${userCount} user(s) and ${auctionCount} auction(s).`);
+        console.log(`About to delete:`);
+        console.log(`  - ${auctionCount} auction(s)`);
+        console.log(`  - ${userCount} user(s)`);
+        console.log(`  - ${bidCount} bid(s)`);
+        console.log(`  - ${watchlistCount} watchlist item(s)`);
+        console.log(`  - ${questionCount} question(s)`);
         console.log('Use --force flag to confirm deletion.');
         await disconnectDB();
         return;
@@ -116,8 +127,16 @@ program
 
       const auctionResult = await Auction.deleteMany({});
       const userResult = await User.deleteMany({});
+      const bidResult = await Bid.deleteMany({});
+      const watchlistResult = await Watchlist.deleteMany({});
+      const questionResult = await Question.deleteMany({});
 
-      console.log(`Successfully deleted ${userResult.deletedCount} user(s) and ${auctionResult.deletedCount} auction(s).`);
+      console.log(`Successfully deleted:`);
+      console.log(`  - ${auctionResult.deletedCount} auction(s)`);
+      console.log(`  - ${userResult.deletedCount} user(s)`);
+      console.log(`  - ${bidResult.deletedCount} bid(s)`);
+      console.log(`  - ${watchlistResult.deletedCount} watchlist item(s)`);
+      console.log(`  - ${questionResult.deletedCount} question(s)`);
 
       await disconnectDB();
     } catch (error) {
